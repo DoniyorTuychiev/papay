@@ -29,7 +29,6 @@ mongodb.connect(
             });   
 
         }catch{ //1 - qadam
-                
-            console.log("ERROR on connection MongoDB");
+            console.log("ERROR on connection MongoDB");    
         }  
     });
