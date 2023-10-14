@@ -1,23 +1,21 @@
 const dotenv = require("dotenv");
+dotenv.config();// shuni qoymaganimga 4 soat DB bilan boglanishdada eror chiqdi
 
 const http = require("http");
-const mongodb = require("mongodb");
+const mongoose = require("mongoose"); //mongoose ni chaqirib oldik
 
-let db;
-// const connectionString = process.env.MONGO_URL; // bu ishlamadi
-const connectionString = "mongodb+srv://doni:kjil35Fo8aHsyx80@cluster0.xbvoiwi.mongodb.net/Reja_first";
+const connectionString = process.env.MONGO_URL; 
 
-mongodb.connect(
+mongoose.connect(
     connectionString, //1-Sring
     {
         useNewUrlParser: true,//2- true bilan useNewUrlParser va true bilan useUnifiedTopology
         useUnifiedTopology: true, 
     }, 
-    (err, client) => {// 3- parametr bu callBack boladi
+    (err, goose) => {// 3- parametr bu callBack boladi
         try{ //2 - qadam
             console.log("MongoDB connection succead");
-            
-            module.exports = client; 
+            console.log(goose);            
             const app = require("./app");
             
             const server = http.createServer(app);
