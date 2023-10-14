@@ -4,7 +4,8 @@ const http = require("http");
 const mongodb = require("mongodb");
 
 let db;
-const connectionString = process.env.MONGO_URL;
+// const connectionString = process.env.MONGO_URL; // bu ishlamadi
+const connectionString = "mongodb+srv://doni:kjil35Fo8aHsyx80@cluster0.xbvoiwi.mongodb.net/Reja_first";
 
 mongodb.connect(
     connectionString, //1-Sring
@@ -17,9 +18,8 @@ mongodb.connect(
             console.log("MongoDB connection succead");
             
             module.exports = client; 
-            
             const app = require("./app");
-            console.log("I am here");
+            
             const server = http.createServer(app);
              
             let PORT = process.env.PORT || 4000;

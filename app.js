@@ -2,8 +2,11 @@ console.log("web Serverni boshlash");
 const express = require("express");
 const app = express();
 
+const router = require("./router.js")
 //MongoDB chaqirish
-const db = require("./server").db(); 
+
+const db = require("./server").db();
+
 const mongodb = require("mongodb");
 
 //1 - kirishCode
@@ -19,5 +22,6 @@ app.set("views", "views");
 app.set("view engine", "ejs"); 
 
 //4 Routing Code 
+app.use("/", router);
 
-module.exports = app;
+module.exports = app; 
