@@ -15,7 +15,7 @@ mongoose.connect(
     (err, goose) => {// 3- parametr bu callBack boladi
         try{ //2 - qadam
             console.log("MongoDB connection succead");
-            console.log(goose);            
+            // console.log(goose);            
             const app = require("./app");
             
             const server = http.createServer(app);
