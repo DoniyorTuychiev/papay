@@ -5,6 +5,8 @@ const http = require("http");
 const mongoose = require("mongoose"); //mongoose ni chaqirib oldik
 
 const connectionString = process.env.MONGO_URL; 
+//env ichidagila: PORT = 4000
+//MONGO_URL = mongodb+srv://doni:kjil35Fo8aHsyx80@cluster0.xbvoiwi.mongodb.net/Papays
 
 mongoose.connect(
     connectionString, //1-Sring
