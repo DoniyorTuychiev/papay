@@ -2,6 +2,7 @@ const Member = require("../models/Member");
 
 let memberController = module.exports;
 
+/**signup section start */
 memberController.signup = async (req, res) => {
   try{
     console.log("POST: cont/signup");
@@ -15,11 +16,26 @@ memberController.signup = async (req, res) => {
           res.json({state: "fail", message:err.message});
   }
 };
-memberController.login = (req, res) => {
-        console.log("POST const.login");
-        res.send("login sahifasidasiz");
-};
+/**signup section finesh */
+/**login section start */
+
+memberController.login = async (req, res) => {
+        try{
+          console.log("POST: cont/login");
+          const data = req.body,
+          member = new Member(),
+          result = await member.loginData(data);
+         
+          res.json({ static:"succeed", data: result }); 
+        }catch(err){
+                console.log(`ERROR, cont/login, ${err.message}`);
+                res.json({state: "fail", message: err.message});
+        }
+      };
+/**login section finesh */
+/**logout section start */
 memberController.logout = (req, res) => {
         console.log("GET const.logout");
         res.send("logout sahifasidasiz");
 };
+/**logout section finesh */
