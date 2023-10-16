@@ -16,6 +16,7 @@ app.set("views", "views");
 app.set("view engine", "ejs"); 
 
 //4 Routing Code 
-app.use("/", router);
+// app.use("/resto", router_bssr); //resto FrontendAplication Adminlar va RestoranUserlari uchun kerak boladi
+app.use("/", router);// Bu frontent aplication esa xaridorlar uchun kerak
 
 module.exports = app; 

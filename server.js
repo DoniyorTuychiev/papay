@@ -6,7 +6,7 @@ const mongoose = require("mongoose"); //mongoose ni chaqirib oldik
 
 const connectionString = process.env.MONGO_URL; 
 //env ichidagila: PORT = 4000
-//MONGO_URL = mongodb+srv://doni:kjil35Fo8aHsyx80@cluster0.xbvoiwi.mongodb.net/Papays
+//MONGO_URL = mongodb+srv://doni:kjil35Fo8aHsyx80@cluster0.xbvoiwi.mongodb.net/Papay
 
 mongoose.connect(
     connectionString, //1-Sring
@@ -17,7 +17,7 @@ mongoose.connect(
     (err, goose) => {// 3- parametr bu callBack boladi
         try{ //2 - qadam
             console.log("MongoDB connection succead");
-            // console.log(goose);            
+            // console.log(goose);           
             const app = require("./app");
             
             const server = http.createServer(app);
