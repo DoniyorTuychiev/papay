@@ -2,6 +2,7 @@
 //Agar model collection bilan togridan tori ishlasa u SERVICE Model deyiladi
 //Agar model collection bilan emas model bilan toridan tori ishlasa u SCHIMA Model deyiladi
 
+
 const mongoose = require("mongoose");
 const {
      member_type_enums,

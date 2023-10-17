@@ -6,7 +6,6 @@ let memberController = module.exports;
 memberController.signup = async (req, res) => {
 
   try{
-    
     console.log("POST: cont/signup");
     const data = req.body,
     member = new Member(),

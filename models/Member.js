@@ -5,7 +5,7 @@
 const MemberModel = require("../schema/member.model");
 const Definer = require("../lib/mistake");
 const assert = require("assert");
-const bcrypt = require("bcryptjs");                                 //db ga malumotni sifrlash uchun bcryptjs packege dan foydalandik
+const bcrypt = require("bcryptjs");                                //db ga malumotni sifrlash uchun bcryptjs packege dan foydalandik
 
 class Member {
     constructor() {

@@ -1,3 +1,4 @@
+
 const dotenv = require("dotenv");
 dotenv.config();// shuni qoymaganimga 4 soat DB bilan boglanishdada eror chiqdi
 
