@@ -2,8 +2,21 @@ const Member = require("../models/Member");
 
 let restaurantController = module.exports;
 
+restaurantController.getMyRestaurantData = async (req, res) => {
+  
+  try{
+    console.log("GET: cont/getMyRestaurantData");
+    //TODI: "Get My Restaurant Products"
+
+    res.render(`restaurant-menu`);
+  }catch(err){
+    console.log(`GET: cont/getMyRestaurantData, ${err.message}`);
+    res.json({state: "fail", message: err.message});
+  }
+}
+
 restaurantController.getSignupMyRestaurant = async (req, res) => {
-  console.log("Hi I am here");
+  
   try{
     console.log("GET: cont/getSignupMyRestaurant");
     res.render("signup");
@@ -21,8 +34,9 @@ restaurantController.signupProcess = async (req, res) => {
     const data = req.body,
     member = new Member(),
     new_member = await member.signupData(data);
-    res.json({static:"succeed", data: new_member}); 
-
+    //SESSION
+    req.session.member = new_member;
+    req.redirect("/resto/products/menu");
   }catch(err){
           console.log(`ERROR, cont/signup, ${err.message}`);
           res.json({state: "fail", message: err.message});
@@ -44,10 +58,13 @@ restaurantController.loginProcess = async (req, res) => {
         try{
           console.log("POST: cont/login");
           const data = req.body,
-          member = new Member(),
-          result = await member.loginData(data);
-         
-          res.json({ static:"succeed", data: result }); 
+            member = new Member(),
+            result = await member.loginData(data);
+            
+            req.session.member = result;
+            req.session.save(function() {
+              res.redirect("/resto/products/menu");
+            });
         }catch(err){
                 console.log(`ERROR, cont/login, ${err.message}`);
                 res.json({state: "fail", message: err.message});
@@ -60,3 +77,12 @@ restaurantController.logout = (req, res) => {
         res.send("logout sahifasidasiz");
 };
 /**logout section finesh */
+//check_me start
+
+restaurantController.checkSessions = (req, res) => {
+  if(req.session?.member) {
+    res.json({state: "succeed", data: req.session.member});
+  }else{
+    res.json({state: "fail", message: "you are not aithenticated"});
+  }
+};
