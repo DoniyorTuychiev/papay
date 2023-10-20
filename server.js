@@ -1,6 +1,6 @@
 
 const dotenv = require("dotenv");
-dotenv.config();// shuni qoymaganimga 4 soat DB bilan boglanishdada eror chiqdi
+dotenv.config();
 
 const http = require("http");
 const mongoose = require("mongoose"); //mongoose ni chaqirib oldik
@@ -20,12 +20,11 @@ mongoose.connect(
             console.log("MongoDB connection succead");
             // console.log(goose);           
             const app = require("./app");
-            
             const server = http.createServer(app);
              
             let PORT = process.env.PORT || 4000;
             server.listen(PORT, function () {
-                console.log(`The server is running successfully on part : ${PORT}, http://localhost:${PORT}`//http://localhost:${PORT} orqali linkniyam consolda kora olamiz
+                console.log(`The server is running successfully on part : ${PORT}, http://localhost:${PORT}`
                 );
             });   
 

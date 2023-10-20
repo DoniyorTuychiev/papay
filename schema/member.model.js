@@ -1,5 +1,5 @@
 //Schima model
-//Agar model collection bilan togridan tori ishlasa u SERVICE Model deyiladi
+
 //Agar model collection bilan emas model bilan toridan tori ishlasa u SCHIMA Model deyiladi
 
 
@@ -14,9 +14,9 @@ const {
         mb_nick : {
             type: String,
             required: true,
-            index: {unique: true, sparse: true}//ishlatilgan mb_nike ishlatilgan bolsa qayta ishlattirmaydi va ishlatilgan deydi
+            index: {unique: true, sparse: true} //ishlatilgan mb_nike ishlatilgan bolsa qayta ishlattirmaydi va ishlatilgan deydi
         },
-        mb_phone: {
+            mb_phone: {
             type: String,
             required: true,
             index: {unique: true, sparse: true}

@@ -4,14 +4,16 @@ let memberController = module.exports;
 
 /**signup section start */
 memberController.signup = async (req, res) => {
-
+  console.log("I am A_3");
   try{
     console.log("POST: cont/signup");
     const data = req.body,
     member = new Member(),
     new_member = await member.signupData(data);
-    res.json({static:"succeed", data: new_member}); 
 
+    //TODO: ALUTHENTICATE BASSED ON JWT
+
+    res.json({static:"succeed", data: new_member}); 
   }catch(err){
           console.log(`ERROR, cont/signup, ${err.message}`);
           res.json({state: "fail", message: err.message});
