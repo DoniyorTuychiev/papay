@@ -36,9 +36,9 @@ restaurantController.signupProcess = async (req, res) => {
     new_member = await member.signupData(data);
     //SESSION
     req.session.member = new_member;
-    req.redirect("/resto/products/menu");
+    res.redirect("/resto/products/menu");
   }catch(err){
-          console.log(`ERROR, cont/signup, ${err.message}`);
+          console.log(`ERROR: cont/signup, ${err.message}`);
           res.json({state: "fail", message: err.message});
   }
 };
@@ -49,7 +49,7 @@ restaurantController.getLoginMyRestaurant = async (req, res) => {
     console.log("GET: cont/getLoginMyRestaurant");
     res.render("login-page");
   }catch(err){
-    console.log(`GET: cont/getLoginMyRestaurant, ${err.message}`);
+    console.log(`ERROR: cont/getLoginMyRestaurant, ${err.message}`);
     res.json({state: "fail", message: err.message});
   }
 }
@@ -58,7 +58,7 @@ restaurantController.loginProcess = async (req, res) => {
         try{
           console.log("POST: cont/login");
           const data = req.body,
-            member = new Member(),
+            member = new Member(), 
             result = await member.loginData(data);
             
             req.session.member = result;
@@ -70,19 +70,26 @@ restaurantController.loginProcess = async (req, res) => {
                 res.json({state: "fail", message: err.message});
         }
       };
-/**login section finesh */
-/**logout section start */
+       /**logout section start */
 restaurantController.logout = (req, res) => {
-        console.log("GET const.logout");
-        res.send("logout sahifasidasiz");
+  console.log("GET const.logout");
+  res.send("logout sahifasidasiz");
 };
 /**logout section finesh */
-//check_me start
+/**validateAuthRestaurant section finesh */
+restaurantController.validateAuthRestaurant = (req, res, next) => {
+   if(req.session?.mb_type === "RESTAURANT") {
+    req.member = req.session.member;
+    next();
+   }else
+     res.json({state: "fail", message: "only authenticated members with restaurant type"});
+  }
+  //check_me start
 
 restaurantController.checkSessions = (req, res) => {
   if(req.session?.member) {
     res.json({state: "succeed", data: req.session.member});
   }else{
-    res.json({state: "fail", message: "you are not aithenticated"});
+    res.json({state: "fail", message: "you are not authenticated"});
   }
 };

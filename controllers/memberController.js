@@ -4,7 +4,6 @@ let memberController = module.exports;
 
 /**signup section start */
 memberController.signup = async (req, res) => {
-  console.log("I am A_3");
   try{
     console.log("POST: cont/signup");
     const data = req.body,
