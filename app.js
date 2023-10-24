@@ -5,12 +5,14 @@ const app = express();
 const router = require("./router.js");
 const router_bssr = require("./router_bssr.js");
 
+//session ni yarataish
 let session = require("express-session");
 const MongoDBStore = require("connect-mongodb-session")(session);
 const store = new MongoDBStore({
     uri: process.env.MONGO_URL,
     collection: "sessions",
 });
+//session ni yarataish yakunlandi
 
 //1 - kirishCode
 app.use(express.static("public"));
@@ -19,11 +21,12 @@ app.use(express.urlencoded ({extended: true}));
 
 // 2- sessionCode
 
-app.use(
+//yaratilgan sessiondan foydalanish
+app.use( 
     session({
-        secret: process.env.SESSION_SECRET,
-        cookie: {
-            maxAge: 1000 * 60 * 1,
+        secret: process.env.SESSION_SECRET,//secret ni hosil qilamiz bu encoding va decoding uchun yordam beradi
+        cookie: {                         //yani session id ni encode& decode qilibturadi
+            maxAge: 1000 * 60 * 30,
         },
         store: store,
         resave: true,

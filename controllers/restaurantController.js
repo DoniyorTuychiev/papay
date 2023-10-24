@@ -35,7 +35,8 @@ restaurantController.signupProcess = async (req, res) => {
     member = new Member(),
     new_member = await member.signupData(data);
     //SESSION
-    req.session.member = new_member;
+    req.session.member = new_member; //1-vazifasi mongo db da session qismiga malumotni yozib qoyish
+                                    //2-vazifasi cooke ga id nomerlarini kiritip qoyish
     res.redirect("/resto/products/menu");
   }catch(err){
           console.log(`ERROR: cont/signup, ${err.message}`);
@@ -60,7 +61,6 @@ restaurantController.loginProcess = async (req, res) => {
           const data = req.body,
             member = new Member(), 
             result = await member.loginData(data);
-            
             req.session.member = result;
             req.session.save(function() {
               res.redirect("/resto/products/menu");
@@ -78,7 +78,7 @@ restaurantController.logout = (req, res) => {
 /**logout section finesh */
 /**validateAuthRestaurant section finesh */
 restaurantController.validateAuthRestaurant = (req, res, next) => {
-   if(req.session?.mb_type === "RESTAURANT") {
+  if(req.session?.member?.mb_type === "RESTAURANT") {
     req.member = req.session.member;
     next();
    }else
@@ -93,3 +93,4 @@ restaurantController.checkSessions = (req, res) => {
     res.json({state: "fail", message: "you are not authenticated"});
   }
 };
+ 

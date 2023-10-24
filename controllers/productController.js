@@ -18,7 +18,6 @@ productController.addNewProduct = async (req, res) => {
       res.send("ok");
       }catch(err){
         console.log(`ERROR: cont/addNewProduct, ${err.message}`);
-       
       }
 };
 
