@@ -14,7 +14,7 @@ mongoose.connect(
     {
         useNewUrlParser: true,//2- true bilan useNewUrlParser va true bilan useUnifiedTopology
         useUnifiedTopology: true, 
-    },
+    }, 
     (err, goose) => {// 3- parametr bu callBack boladi
         try{ //2 - qadam
             console.log("MongoDB connection succead");
@@ -29,6 +29,6 @@ mongoose.connect(
             });   
 
         }catch(err){ //1 - qadam
-            console.log(`ERROR on connection MongoDB, ${err.message}`);     
+            console.log(`ERROR on connection MongoDB, ${err.message}`);         
         }  
     });

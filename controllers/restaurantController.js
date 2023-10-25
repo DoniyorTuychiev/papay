@@ -77,7 +77,7 @@ restaurantController.logout = (req, res) => {
 };
 /**logout section finesh */
 /**validateAuthRestaurant section finesh */
-restaurantController.validateAuthRestaurant = (req, res, next) => {//bu function user ni typeni yani user yoki admin yoki restaurantmi tekshiradi validet qiladi
+restaurantController.validateAuthRestaurant = (req, res, next) => {
   if(req.session?.member?.mb_type === "RESTAURANT") {
     req.member = req.session.member;
     next();
