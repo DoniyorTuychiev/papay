@@ -46,7 +46,7 @@ app.set("view engine", "ejs");
 
 //4 Routing Code 
 
-app.use("/resto", router_bssr)
+app.use("/resto", router_bssr);
 app.use("/", router);// Bu frontent aplication esa xaridorlar uchun kerak
 
 module.exports = app; 
