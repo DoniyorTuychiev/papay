@@ -1,16 +1,21 @@
 const Member = require("../models/Member");
+const Product = require("../models/Product");
+
 
 let restaurantController = module.exports;
 
-restaurantController.getMyRestaurantData = async (req, res) => {
-  
+restaurantController.getMyRestaurantProducts = async (req, res) => {
   try{
     console.log("GET: cont/getMyRestaurantData");
     //TODI: "Get My Restaurant Products"
+    const product = new Product();
+    const data = await product.getAllProductsDataResto(res.locals.member);
+    //console.log("data:", data); qilinsa MongoDB dagi type i restaurant bolgan meberlar malumotini qaytishini korish mumkin
 
-    res.render(`restaurant-menu`);
+    res.render("restaurant-menu", {restaurant_data: data});//restarantga tegishli bolgan datani restaurant_data: ga save qilib
+                                                          //"restauran-menu".ejsi ga yuborilyapti
   }catch(err){
-    console.log(`GET: cont/getMyRestaurantData, ${err.message}`);
+    console.log(`GET: cont/getMyRestaurantProducts, ${err.message}`);
     res.json({state: "fail", message: err.message});
   }
 }

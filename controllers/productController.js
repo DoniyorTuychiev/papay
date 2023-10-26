@@ -16,9 +16,9 @@ productController.getAllProducts = async (req, res) => {
 productController.addNewProduct = async (req, res) => {
     try{
         console.log("POST: cont/addNewProduct");
-        assert(req.files, Definer.general_err3);
+        assert.ok(req.files, Definer.general_err3);
 
-        const product = new Product();
+        const product = new Product(); //product ServiceModel dan instance olyapmiz
         let data = req.body; //kelyotkan req body qismidagi malumotlani dataga yozamiz
 
         data.product_images = req.files.map(ele => { // req.filesdan olgan malumotlarni map qilgan holda pathini DB ga array korinishida saqlanadi  
@@ -26,7 +26,6 @@ productController.addNewProduct = async (req, res) => {
         });
 
         const result = await product.addNewProductData(data, req.member);
-
         console.log("data: ", data); //data:  [Object: null prototype] => product_images : olma.jpeg
 
         const html = `<script>alert(new dish added succeessfuly);
@@ -42,6 +41,7 @@ productController.updataChosenProduct = async (req, res) => {
     try{
         console.log("POST: cont/updataChosenProduct");
         const product = new Product();
+        console.log(req.params);
         const 
         id = req.params.id,
         result = await product.updataChosenProductData(
