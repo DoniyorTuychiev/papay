@@ -4,6 +4,16 @@ const Product = require("../models/Product");
 
 let restaurantController = module.exports;
 
+restaurantController.home = async (req, res) => {
+  try{
+    console.log("GET: cont/home");
+    res.render("home-page");
+  }catch(err){
+    console.log(`GET: cont/home, ${err.message}`);
+    res.json({state: "fail", message: err.message});
+  }
+}
+
 restaurantController.getMyRestaurantProducts = async (req, res) => {
   try{
     console.log("GET: cont/getMyRestaurantData");
