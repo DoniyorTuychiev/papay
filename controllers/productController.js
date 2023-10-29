@@ -17,11 +17,12 @@ productController.addNewProduct = async (req, res) => {
     try{
         console.log("POST: cont/addNewProduct");
         assert.ok(req.files, Definer.general_err3);
-
+        console.log(req.files);
         const product = new Product(); //product ServiceModel dan instance olyapmiz
         let data = req.body; //kelyotkan req body qismidagi malumotlani dataga yozamiz
-
+        
         data.product_images = req.files.map(ele => { // req.filesdan olgan malumotlarni map qilgan holda pathini DB ga array korinishida saqlanadi  
+          console.log(req.files);
           return ele.path;
         });
 

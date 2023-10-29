@@ -9,7 +9,7 @@ const uploader_product = require("./utils/upload-multer")("products");
  *      BSSR EJS         *
  ************************/
 
-router_bssr.get("/", restaurantController.home);
+router_bssr.get("/", restaurantController.home); 
 
 router_bssr
     .get("/sign-up", restaurantController.getSignupMyRestaurant) //signup qilinganda qandaydir faylga oborishi uchun get ishlatildi yani signup
