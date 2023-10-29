@@ -16,7 +16,7 @@ restaurantController.home = async (req, res) => {
 
 restaurantController.getMyRestaurantProducts = async (req, res) => {
   try{
-    console.log("GET: cont/getMyRestaurantData");
+    console.log("GET: cont/getMyRestaurantProducts");
     //TODI: "Get My Restaurant Products"
     const product = new Product();
     const data = await product.getAllProductsDataResto(res.locals.member);
@@ -25,7 +25,7 @@ restaurantController.getMyRestaurantProducts = async (req, res) => {
     res.render("restaurant-menu", {restaurant_data: data});//restarantga tegishli bolgan datani restaurant_data: ga save qilib
                                                           //"restauran-menu".ejsi ga yuborilyapti
   }catch(err){
-    console.log(`GET: cont/getMyRestaurantProducts, ${err.message}`);
+    console.log(`GET: cont/getAllProductsDataResto, ${err.message}`);
     res.json({state: "fail", message: err.message});
   }
 }
@@ -54,7 +54,7 @@ restaurantController.signupProcess = async (req, res) => {
                                     //2-vazifasi cooke ga id nomerlarini kiritip qoyish
     res.redirect("/resto/products/menu");
   }catch(err){
-          console.log(`ERROR: cont/signup, ${err.message}`);
+          console.log(`ERROR: cont/signupProcess, ${err.message}`);
           res.json({state: "fail", message: err.message});
   }
 };
@@ -78,10 +78,12 @@ restaurantController.loginProcess = async (req, res) => {
             result = await member.loginData(data);
             req.session.member = result;
             req.session.save(function() {
-              res.redirect("/resto/products/menu");
+              result.mb_type ==="ADMIN"//agar resultdagi mb ni type "ADMIN" bolsa "/resto/all-restaurant" ga yubor boshqa bolsa ("/resto/products/menu")
+              ? res.render("/resto/all-restaurant")
+              : res.redirect("/resto/products/menu");
             });
         }catch(err){
-                console.log(`ERROR, cont/login, ${err.message}`);
+                console.log(`ERROR, cont/loginProcess, ${err.message}`);
                 res.json({state: "fail", message: err.message});
         }
       };
