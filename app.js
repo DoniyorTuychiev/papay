@@ -29,7 +29,7 @@ app.use(
             maxAge: 1000 * 60 * 30,
         },
         store: store,
-        resave: true,
+        resave: true, //resave: true; bu cookeni har safar kirilganda yangilap turadi
         saveUninitialized: true,
     })
 );
@@ -46,7 +46,7 @@ app.set("view engine", "ejs");
 
 //4 Routing Code 
 
-app.use("/resto", router_bssr)
-app.use("/", router);// Bu frontent aplication esa xaridorlar uchun kerak
+app.use("/resto", router_bssr);//BSSR yani tradetional 
+app.use("/", router);// Bu frontent aplication esa xaridorlar uchun kerak REACT uchun 
 
 module.exports = app; 

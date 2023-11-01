@@ -38,7 +38,6 @@ class Member {
 /**signup section finesh */
 ////////////////////////////////////////////////////////////
 /**login section start */
-
     async loginData(input) {
         const new_member = new this.memberModel(input);//videoda yerga yozilmagan lekiin yozdim aks holda ishlamadi
         try{

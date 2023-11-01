@@ -1,7 +1,6 @@
 const Member = require("../models/Member");
 
 let memberController = module.exports;
-
 /**signup section start */
 memberController.signup = async (req, res) => {
   try{
@@ -11,7 +10,6 @@ memberController.signup = async (req, res) => {
     new_member = await member.signupData(data);
 
     //TODO: ALUTHENTICATE BASSED ON JWT
-
     res.json({static:"succeed", data: new_member}); 
   }catch(err){
           console.log(`ERROR, cont/signup, ${err.message}`);
