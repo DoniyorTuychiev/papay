@@ -1,6 +1,8 @@
 
 const Member = require("../models/Member");
 const Product = require("../models/Product");
+const Definer = require("../lib/mistake");
+const assert = require("assert");
 
 
 let restaurantController = module.exports;
@@ -44,14 +46,21 @@ restaurantController.getSignupMyRestaurant = async (req, res) => {
 
 /**signup section start */
 restaurantController.signupProcess = async (req, res) => {
-
   try{
-    console.log("POST: cont/signup");
-    const data = req.body,
-    member = new Member(),
-    new_member = await member.signupData(data);
-    //SESSION
-    req.session.member = new_member; //1-vazifasi mongo db da session qismiga malumotni yozib qoyish
+
+    console.log("POST: cont/signupProcess");
+    assert(req.file, Definer.general_err3);
+
+    const new_member = req.body;
+    new_member.mb_type = "RESTAURANT";
+    new_member.mb_image = req.file.path;
+
+    const member = new Member();
+    const result = await member.signupData(new_member);
+    assert(result, Definer.general_err1);
+    
+      //SESSION
+    req.session.member = result; //1-vazifasi mongo db da session qismiga malumotni yozib qoyish
                                     //2-vazifasi cooke ga id nomerlarini kiritip qoyish
     res.redirect("/resto/products/menu");
   }catch(err){

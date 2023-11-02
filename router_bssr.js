@@ -4,6 +4,8 @@ const router_bssr = express.Router();
 const restaurantController = require("./controllers/restaurantController");
 const productController = require("./controllers/productController");
 const uploader_product = require("./utils/upload-multer")("products");
+const uploader_members = require("./utils/upload-multer")("members");
+
 
 /*************************
  *      BSSR EJS         *
@@ -13,7 +15,7 @@ router_bssr.get("/", restaurantController.home);
 
 router_bssr
     .get("/sign-up", restaurantController.getSignupMyRestaurant) //signup qilinganda qandaydir faylga oborishi uchun get ishlatildi yani signup
-    .post("/sign-up", restaurantController.signupProcess);        //qilinganda post qilish bilan birga get orqali signup.ejs file ga boradi
+    .post("/sign-up", uploader_members.single("restaurant_img"), restaurantController.signupProcess);        //qilinganda post qilish bilan birga get orqali signup.ejs file ga boradi
 
 router_bssr
     .get("/login", restaurantController.getLoginMyRestaurant)
