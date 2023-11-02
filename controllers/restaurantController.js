@@ -1,8 +1,12 @@
 
 const Member = require("../models/Member");
 const Product = require("../models/Product");
+const Definer = require("../lib/mistake");
+const assert = require("assert");
+
 
 let restaurantController = module.exports;
+
 restaurantController.home = async (req, res) => {
   try{
     console.log("GET: cont/home");
@@ -12,6 +16,7 @@ restaurantController.home = async (req, res) => {
     res.json({state: "fail", message: err.message});
   }
 }
+
 restaurantController.getMyRestaurantProducts = async (req, res) => {
   try{
     console.log("GET: cont/getMyRestaurantProducts");
@@ -19,6 +24,7 @@ restaurantController.getMyRestaurantProducts = async (req, res) => {
     const product = new Product();
     const data = await product.getAllProductsDataResto(res.locals.member);
     //console.log("data:", data); qilinsa MongoDB dagi type i restaurant bolgan meberlar malumotini qaytishini korish mumkin
+
     res.render("restaurant-menu", {restaurant_data: data});//restarantga tegishli bolgan datani restaurant_data: ga save qilib
                                                           //"restauran-menu".ejsi ga yuborilyapti
   }catch(err){
@@ -26,6 +32,7 @@ restaurantController.getMyRestaurantProducts = async (req, res) => {
     res.json({state: "fail", message: err.message});
   }
 }
+
 restaurantController.getSignupMyRestaurant = async (req, res) => {
   
   try{
@@ -36,18 +43,28 @@ restaurantController.getSignupMyRestaurant = async (req, res) => {
     res.json({state: "fail", message: err.message});
   }
 }
+
 /**signup section start */
 restaurantController.signupProcess = async (req, res) => {
   try{
-    console.log("POST: cont/signup");
-    const data = req.body,
-    member = new Member(),
-    new_member = await member.signupData(data);
-    //SESSION
-    req.session.member = new_member; //1-vazifasi mongo db da session qismiga malumotni yozib qoyish
+
+    console.log("POST: cont/signupProcess");
+    assert(req.file, Definer.general_err3);
+
+    const new_member = req.body;
+    new_member.mb_type = "RESTAURANT";
+    new_member.mb_image = req.file.path;
+
+    const member = new Member();
+    const result = await member.signupData(new_member);
+    assert(result, Definer.general_err1);
+    
+      //SESSION
+    req.session.member = result; //1-vazifasi mongo db da session qismiga malumotni yozib qoyish
                                     //2-vazifasi cooke ga id nomerlarini kiritip qoyish
     res.redirect("/resto/products/menu");
   }catch(err){
+    
           console.log(`ERROR: cont/signupProcess, ${err.message}`);
           res.json({state: "fail", message: err.message});
   }
@@ -63,6 +80,7 @@ restaurantController.getLoginMyRestaurant = async (req, res) => {
     res.json({state: "fail", message: err.message});
   }
 }
+
 restaurantController.loginProcess = async (req, res) => {
         try{
           console.log("POST: cont/login");
@@ -95,6 +113,7 @@ restaurantController.validateAuthRestaurant = (req, res, next) => {
      res.json({state: "fail", message: "only authenticated members with restaurant type"});
   }
   //check_me start
+
 restaurantController.checkSessions = (req, res) => {
   if(req.session?.member) {
     res.json({state: "succeed", data: req.session.member});
@@ -102,3 +121,4 @@ restaurantController.checkSessions = (req, res) => {
     res.json({state: "fail", message: "you are not authenticated"});
   }
 };
+ 
