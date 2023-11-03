@@ -22,14 +22,16 @@
             <li class="naw-item" style="cursor: pointer" 
                 onclick="return confirm('Do you want to Logout?')"
                 >
-                <a class="nav-link" href="/resto/logout">LogOut</a>
+                <a class="nav-link" href="/resto/logout">Logout</a>
             </li>
             <% }else{ %>
                 <li class="naw-item" style="cursor: pointer">
                     <a class="nav-link" href="/resto/products/menu">MyResto</a>
                 </li>
-                <li class="naw-item" style="cursor: pointer">
-                    <a class="nav-link" href="/resto/logout">LogOut</a>
+                <li class="naw-item" 
+                style="cursor: pointer"
+                onclick="return confirm('Do you want to Logout?')">
+                    <a class="nav-link" href="/resto/logout">Logout</a>
                 </li>
            <% } %>
           </ul>

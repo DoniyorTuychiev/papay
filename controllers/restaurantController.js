@@ -64,7 +64,7 @@ restaurantController.signupProcess = async (req, res) => {
                                     //2-vazifasi cooke ga id nomerlarini kiritip qoyish
     res.redirect("/resto/products/menu");
   }catch(err){
-    
+
           console.log(`ERROR: cont/signupProcess, ${err.message}`);
           res.json({state: "fail", message: err.message});
   }
@@ -100,9 +100,17 @@ restaurantController.loginProcess = async (req, res) => {
       };
        /**logout section start */
 restaurantController.logout = (req, res) => {
-  console.log("GET const.logout");
-  res.send("logout sahifasidasiz");
+  try{
+    console.log("GET cont/logout");
+    req.session.destroy(function() {
+      res.redirect("/resto");
+    });
+  }catch{
+    console.log(`ERROR, cont/logout, ${err.message}`);
+    res.json({state:"fail", message: err.message});
+  }
 };
+
 /**logout section finesh */
 /**validateAuthRestaurant section finesh */
 restaurantController.validateAuthRestaurant = (req, res, next) => {
