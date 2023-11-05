@@ -23,7 +23,7 @@ productController.addNewProduct = async (req, res) => {
         
         data.product_images = req.files.map(ele => { // req.filesdan olgan malumotlarni map qilgan holda pathini DB ga array korinishida saqlanadi  
           console.log(req.files);
-          return ele.path;
+          return ele.path.replace(/\\/g, '/');
         });
 
         const result = await product.addNewProductData(data, req.member);

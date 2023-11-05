@@ -5,7 +5,7 @@ const Definer = require("../lib/mistake");
 const assert = require("assert");
 
 
-let restaurantController = module.exports;
+let restaurantController = module.exports ;
 
 restaurantController.home = async (req, res) => {
   try{
@@ -28,8 +28,8 @@ restaurantController.getMyRestaurantProducts = async (req, res) => {
     res.render("restaurant-menu", {restaurant_data: data});//restarantga tegishli bolgan datani restaurant_data: ga save qilib
                                                           //"restauran-menu".ejsi ga yuborilyapti
   }catch(err){
-    console.log(`GET: cont/getAllProductsDataResto, ${err.message}`);
-    res.json({state: "fail", message: err.message});
+    console.log(`ERROR: cont/getAllProductsDataResto, ${err.message}`);
+    res.redirect("/resto");
   }
 }
 
@@ -90,8 +90,8 @@ restaurantController.loginProcess = async (req, res) => {
             req.session.member = result;
             req.session.save(function() {
               result.mb_type ==="ADMIN"//agar resultdagi mb ni type "ADMIN" bolsa "/resto/all-restaurant" ga yubor boshqa bolsa ("/resto/products/menu")
-              ? res.render("/resto/all-restaurant")
-              : res.redirect("/resto/products/menu");
+              ? res.render("/resto/all-restaurant") 
+              : res.redirect("/resto/products/menu" );
             });
         }catch(err){
                 console.log(`ERROR, cont/loginProcess, ${err.message}`);

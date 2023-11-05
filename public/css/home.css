@@ -12,11 +12,11 @@ body{
     z-index: 10000;
     top: 1%;
     color: rgb(241, 239, 239);
-    font-size: x-large;
+    font-size: xxx-large;
     font-family: monospace;
 }
 
-.animation-wrapper {
+.animation-wrapper{
     width: 50%;
     padding-bottom: 50%;
   }

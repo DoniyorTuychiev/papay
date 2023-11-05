@@ -8,30 +8,43 @@
             <li class="nav-item" style="cursor: pointer">
               <a class="nav-link active" href="/resto">Home</a>
             </li> 
+
             <% if(!member) { %>
-                <li class="naw-item" style="cursor: pointer">
+                <li 
+                class="nav-item" 
+                style="cursor: pointer">
                 <a class="nav-link" href="/resto/sign-up">Signup</a>
             </li>
-            <li class="naw-item" style="cursor: pointer">
+            <li 
+            class="nav-item" 
+            style="cursor: pointer">
                 <a class="nav-link" href="/resto/login">Login</a>
             </li>
-           <% }else if (member.mb_type === "ADMIN"){ %>
-            <li class="naw-item" style="cursor: pointer">
-                <a class="nav-link" href="/resto/all-restaurant">AllResto</a>
+           <% }else if (member.mb_type === "ADMIN") { %>
+            <li 
+            class="nav-item" 
+            style="cursor: pointer">
+                <a class="nav-link" href="/resto/all-restaurant"> AllResto </a>
             </li> 
-            <li class="naw-item" style="cursor: pointer" 
+            <li 
+            class="nav-item" 
+            style="cursor: pointer" 
                 onclick="return confirm('Do you want to Logout?')"
                 >
-                <a class="nav-link" href="/resto/logout">Logout</a>
+                <a class="nav-link" href="/resto/logout"> Logout </a>
             </li>
             <% }else{ %>
-                <li class="naw-item" style="cursor: pointer">
-                    <a class="nav-link" href="/resto/products/menu">MyResto</a>
+                <li 
+                class="nav-item" 
+                style="cursor: pointer">
+                    <a class="nav-link" href="/resto/products/menu"> MyResto </a>
                 </li>
-                <li class="naw-item" 
+                <li 
+                class="nav-item" 
                 style="cursor: pointer"
-                onclick="return confirm('Do you want to Logout?')">
-                    <a class="nav-link" href="/resto/logout">Logout</a>
+                  onclick = "return confirm('Do you want to Logout?')"
+                  >
+                  <a class="nav-link" href="/resto/logout"> Logout </a>
                 </li>
            <% } %>
           </ul>
