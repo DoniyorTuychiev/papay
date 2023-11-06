@@ -34,7 +34,7 @@
 }
 .spec_select{
     position: relative;
-    padding: 0px 7 px;
+    padding: 0px 7px;
     height: 27px;
     background: #ffffff;
     border: 1px solid #dadada;
@@ -43,7 +43,7 @@
     font-family: 'GT Walsheim Pro';
     font-style: normal;
     font-weight: 400;
-    font-size: 15px;
+    font-size: 16px;
     line-height: 25px;
     color: #4f547b;
 }
@@ -53,17 +53,9 @@
     width: 100%;
     height: auto;
 
-    display: flex;
+    display: none; /*display: none; bolganda yangi taom qoshish korinmaydi */
     flex-direction: column;
     align-items: center;
-}
-.long_input{
-    position: relative;
-    margin-top: 25px;
-    width: 100px;
-    height: auto;
-    display: flex;
-    flex-direction: column;
 }
 .new_dish_txt{
     font-family: 'Source Serif Pro';
@@ -72,4 +64,176 @@
     font-size: 30px;
     line-height: 25px;
     color: #ffffff;
+}
+.long_input{
+    position: relative;
+    margin-top: 25px;
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+
+}
+.long_input label{
+    font-family: 'Source Serif Pro';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 25px;
+    color: #ffffff;
+}
+.long_input input{
+    position: relative;
+    margin-top: 10px;
+    padding-left: 20px;
+    width: 100%;
+    height: 54px;
+    border: none;
+
+    background: #f7f7f7;
+    box-shadow: 8px 4px 4px rgb(0, 0, 0, 0.25);
+    border-radius: 5px;
+
+    font-family: 'GT Walshein Pro';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 25px;
+    color: #4F547B;
+}
+.half_input_frame{
+    position: relative;
+    margin-top: 25px;
+    width: 100%;
+    height: auto;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+} 
+.half_input{
+    position: relative;
+    width: 49%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.half_input label{
+    font-family: 'Source Serif Pro';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 25px;
+    color: #ffffff;
+}
+.half_input input{
+    position: relative;
+    margin-top: 10px;
+    padding-left: 20px;
+    width: 100%;
+    height: 54px;
+    border: none;
+
+    background: #f7f7f7;
+    box-shadow: 8px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+}
+.half_input_frame select{
+    position: relative;
+    margin-top: 10px;
+    padding: 0px 20px;
+    width: 100%;
+    height: 55px;
+    display: flex;
+    border: none;
+
+    background: #f7f7f7;
+    box-shadow: 8px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+
+    font-family: 'GT Walshein Pro';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 25px;
+    color: #4F547B;
+}
+.long_input textarea{
+    position: relative;
+    margin-top: 10px;
+    padding: 0px 20px;
+    width: 100%;
+    height: 200px;
+    display: flex;
+    border: none;
+
+    background: #f7f7f7;
+    box-shadow: 8px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+
+    font-family: 'GT Walshein Pro';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 25px;
+    color: #4F547B;
+}
+.img_frame{
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.img_frame label{
+    margin-top: 30px;
+    font-family: 'Source Serif Pro';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 25px;
+    color: #ffffff;
+
+}
+.media-frame{
+    position: relative;
+    margin-top: 10px;
+    width: 100%;
+    height: 250px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.upload_img_box{
+    position: relative;
+    width: 19%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.upload_img_box img{
+    position: relative;
+    width: 100%;
+    height: 100%;
+
+    display: block;
+    border-radius: 10px;
+}
+#file{
+    opacity: 0;
+    border: none;
+    border-radius: 10px;
+    background: grey;
+    position: absolute;
+    left: 8px;
+    width: 100%;
+    top: 0px;
+    height: 100%;
+    cursor: pointer;
 }

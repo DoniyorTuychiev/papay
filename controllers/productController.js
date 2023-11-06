@@ -29,7 +29,7 @@ productController.addNewProduct = async (req, res) => {
         const result = await product.addNewProductData(data, req.member);
         console.log("data: ", data); //data:  [Object: null prototype] => product_images : olma.jpeg
 
-        const html = `<script>alert(new dish added succeessfuly);
+        const html = `<script>alert('new dish added succeessfuly');
                       window.location.replace('/resto/products/menu');
         </script>`
       res.end(html);
@@ -50,7 +50,7 @@ productController.updataChosenProduct = async (req, res) => {
           req.body, 
           req.member._id
           );
-       return res.json({state: "update succsed", data: result});
+       return res.json({state: "success", data: result});
       }catch(err){
         console.log(`ERROR: cont/updataChosenProduct, ${err.message}`);
         res.json({state: "fail", message: err.message});

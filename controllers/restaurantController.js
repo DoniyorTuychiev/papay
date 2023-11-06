@@ -91,7 +91,7 @@ restaurantController.loginProcess = async (req, res) => {
             req.session.save(function() {
               result.mb_type ==="ADMIN"//agar resultdagi mb ni type "ADMIN" bolsa "/resto/all-restaurant" ga yubor boshqa bolsa ("/resto/products/menu")
               ? res.render("/resto/all-restaurant") 
-              : res.redirect("/resto/products/menu" );
+              : res.redirect("/resto/products/menu");
             });
         }catch(err){
                 console.log(`ERROR, cont/loginProcess, ${err.message}`);
