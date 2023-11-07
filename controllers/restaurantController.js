@@ -2,7 +2,8 @@
 const Member = require("../models/Member");
 const Product = require("../models/Product");
 const Definer = require("../lib/mistake");
-const assert = require("assert");
+const Restaurant = require("../models/Restaurant");
+const assert = require("assert"); 
 
 
 let restaurantController = module.exports ;
@@ -90,7 +91,7 @@ restaurantController.loginProcess = async (req, res) => {
             req.session.member = result;
             req.session.save(function() {
               result.mb_type ==="ADMIN"//agar resultdagi mb ni type "ADMIN" bolsa "/resto/all-restaurant" ga yubor boshqa bolsa ("/resto/products/menu")
-              ? res.redirect("/resto/all-restaurant") 
+              ? res.redirect("/resto/all-restaurants") 
               : res.redirect("/resto/products/menu");
             });
         }catch(err){
@@ -144,11 +145,14 @@ restaurantController.validateAdmin = (req, res, next) => {
    } 
   };
 
-restaurantController.getAllRestaurants = (req, res) => {
+restaurantController.getAllRestaurants = async (req, res) => {
   try{
     console.log("GET cont/getAllRestaurants");
-    //TODO Hamma retaurantlarni obdon chaqirish
-    res.render("all-restaurants");
+    const restaurant = new Restaurant();
+    const restaurants_data = await restaurant.getAllRestaurantsData();
+
+    console.log("restaurants_data", restaurants_data);
+    res.render("all-restaurants", { restaurants_data: restaurants_data});
   }catch(err){
     console.log(`ERROR, cont/getAllRestaurants, ${err.message}`);
     res.json({state:"fail", message: err.message});    

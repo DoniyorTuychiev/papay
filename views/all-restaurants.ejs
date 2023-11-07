@@ -40,27 +40,30 @@
                         <th scope="col">Taom Holati</th>
                     </tr>
                 </thead>
-
-                <tbody style="background: white;">
-                    <td>1</td> <!--array noldan boshlangani uchun +1 yozildi yani 1-indexdan oqigin deb -->
-                    <td>Temir Ota</td>
-                    <td>9989 3002530</td>
-                    <td style="width: 13%;">
-                    <label class="switch">
-                        <input type="checkbox" class="mb_top">
-                        <span class="slider round"></span>
-                    </label></td>
-                    <td style="background: white;">
-                    <select class="spec_select mb_status">
-                        <option value="ONPAUSE">ONPAUSE</option>
-                        <option value="ACTIVE">ACTIVE</option>
-                        <option value="DELETED">DELETED</option>
-                    </select>
-                </td>
-             </tbody>
+                <% restaurants_data.map(function(value, key){ %>
+                    <tbody style="background: white;">
+                        <td><%= key + 1 %></td> <!--array noldan boshlangani uchun +1 yozildi yani 1-indexdan oqigin deb -->
+                        <td><%= value.mb_nick %></td>
+                        <td><%= value.mb_phone %></td>
+                        <td style="width: 13%;">
+                        <label class="switch">
+                            <input type="checkbox" class="mb_top" id="<%= value._id%>"
+                            <%= value.mb_top === 'Y' ? 'checked' : ''%>/>
+                            <span class="slider round"></span>
+                        </label></td>
+                        <td style="width: 13%;">
+                            <select class="spec_select mb_status" >
+                                   <option value="ONPAUSE" <%= value.product_status === 'ONPAUSE' ? 'selected' : '' %> >ONPAUSE</option>
+                                   <option value="ACTIVE" <%= value.product_status === 'ACTIVE' ? 'selected' : '' %> >ACTIVE</option>
+                                   <option value="DELETED" <%= value.product_status === 'DELETED' ? 'selected' : '' %> >DELETED</option>
+                            </select>
+                        </td>
+                    </tbody>
+                <% }) %>
             </div>
         </div>
     </div>
+
 </body>
 
 <%- include ('includes/footer') %>

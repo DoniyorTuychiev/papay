@@ -39,7 +39,7 @@ router_bssr.post(
     productController.updataChosenProduct);
 
     router_bssr.get(
-        "/all-restaurant", 
+        "/all-restaurants", 
         restaurantController.validateAdmin,
         restaurantController.getAllRestaurants);
 
