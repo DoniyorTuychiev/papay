@@ -147,7 +147,7 @@ restaurantController.validateAdmin = (req, res, next) => {
 
 restaurantController.getAllRestaurants = async (req, res) => {
   try{
-    console.log("GET cont/getAllRestaurants");
+    console.log("GET cont/getAllRestaurants"); 
     const restaurant = new Restaurant();
     const restaurants_data = await restaurant.getAllRestaurantsData();
 

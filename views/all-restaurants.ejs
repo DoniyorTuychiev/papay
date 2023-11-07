@@ -52,7 +52,7 @@
                             <span class="slider round"></span>
                         </label></td>
                         <td style="width: 13%;">
-                            <select class="spec_select mb_status" >
+                            <select class="spec_select mb_status" id="<%= value._id%>">
                                    <option value="ONPAUSE" <%= value.product_status === 'ONPAUSE' ? 'selected' : '' %> >ONPAUSE</option>
                                    <option value="ACTIVE" <%= value.product_status === 'ACTIVE' ? 'selected' : '' %> >ACTIVE</option>
                                    <option value="DELETED" <%= value.product_status === 'DELETED' ? 'selected' : '' %> >DELETED</option>
@@ -65,6 +65,8 @@
     </div>
     <script>
         $(function() {
+
+            // manupupulate restaurant top features
             $(".mb_top").on('change', function(e) {
                 const id = e.target.id;
                 const mb_top = e.target.checked ? 'Y' : 'N';
@@ -82,7 +84,27 @@
                     }  
                 })
                 .catch(err => console.log(err));
+            });
 
+            // manupupulate restaurant status features
+            $(".mb_status").on('change', function(e) {
+                const id = e.target.id;
+                const mb_status = $(`#${id}.mb_status`).val();
+
+                console.log("mb_status", mb_status);
+
+                axios.post( '/resto/all-restaurants/edit', {id: id, mb_status: mb_status})
+                .then(response => {
+                    const result = response.data;
+                    if(result.state === 'success') {
+                        alert('successfuly updated');
+                    }
+                    // console.log(result);
+                    else{
+                        alert(result.message);
+                    }  
+                })
+                .catch(err => console.log(err));
             });
         });
     </script>
