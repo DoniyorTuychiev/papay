@@ -148,10 +148,10 @@ restaurantController.getAllRestaurants = (req, res) => {
   try{
     console.log("GET cont/getAllRestaurants");
     //TODO Hamma retaurantlarni obdon chaqirish
-    res.render("/all-restaurant");
+    res.render("all-restaurants");
   }catch(err){
     console.log(`ERROR, cont/getAllRestaurants, ${err.message}`);
-    res.json({state:"fail", message: err.message});  
+    res.json({state:"fail", message: err.message});    
   }
 }
  
