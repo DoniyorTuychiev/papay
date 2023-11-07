@@ -31,17 +31,26 @@ router_bssr.post(
     "/products/create", 
     restaurantController.validateAuthRestaurant,
     uploader_product.array("product_images", 5),
-    productController.addNewProduct);
+    productController.addNewProduct
+    );
 
 router_bssr.post(
     "/products/edit/:id",
     restaurantController.validateAuthRestaurant,
-    productController.updataChosenProduct);
+    productController.updataChosenProduct
+    );
 
-    router_bssr.get(
-        "/all-restaurants", 
-        restaurantController.validateAdmin,
-        restaurantController.getAllRestaurants);
+router_bssr.get(
+    "/all-restaurants", 
+    restaurantController.validateAdmin,
+    restaurantController.getAllRestaurants
+    );
+
+router_bssr.post(
+    "/all-restaurants/edit", 
+    restaurantController.validateAdmin,
+    restaurantController.updateRestaurantByAdmin
+    );
 
 
 
