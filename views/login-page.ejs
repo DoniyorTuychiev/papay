@@ -2,6 +2,7 @@
 <%- include ('includes/header') %>
 <link rel="stylesheet" type="text/css" href=" /css/login.css">
 <link rel="stylesheet" type="text/css" href="/css/signup.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/> 
 
 <body>
         <!-- form bu tradetional reqiesting boladi -->
@@ -16,7 +17,7 @@
                 </div> 
                 <div class="login_input_frame">
                         <div class="login_input_container">
-                                <label for="">Foydalanuvchining ismi:</label>
+                                <label>Foydalanuvchining ismi:</label>
                                 <input 
                                 type="text" 
                                 name="mb_nick" 
@@ -24,14 +25,16 @@
                                 required>
                         </div>
                         <div class="login_input_container">
-                                <label for="">Password kiriting:</label>
+                                <label >Password kiriting:</label>
                                 <input 
                                 type="password" 
                                 name="mb_password"
                                 placeholder="Password" 
                                 value="" 
                                 required>
-                                <i class="far fa-eye" id="togglePassword" style="margin-left: -30px; cursor: pointer;"></i>
+                                <!-- <span>
+                                        <i class="fa-solid fa-eye"></i>
+                                </span> -->
                         </div>
                 </div>
 
