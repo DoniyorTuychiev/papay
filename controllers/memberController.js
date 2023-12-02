@@ -14,6 +14,7 @@ const Definer = require("../lib/mistake");
 //refresh_tokenni yana bir afzalligi agar sizni profilizga hacking bolaversa site adminiga yozasiz va u db dan refresh_token ni ochiradi
 //shundan song siz har safar site ga kirganizda login bolip turmaysiz va sizzni token lariz ham refresh bolib turmedi
 //bazi brauzerlarga kora httpS protokollar ga amal qilgan holdagina yani bazi shartlarga kora backend domen bilan frontend domeni yani ip adresi bir hil bolgandagina cookielar uzatiladi bu esa hackingni oldini olish uchun
+
 /**signup section start */
 memberController.signup = async (req, res) => {
   try{
@@ -62,8 +63,11 @@ memberController.login = async (req, res) => {
 /**login section finesh */
 /**logout section start */
 memberController.logout = (req, res) => {
-        console.log("GET const.logout");
-        res.send("logout sahifasidasiz");
+  
+    console.log("GET const.logout");
+    res.cookie('access_token', null, {maxAge: 0, httpOnly: true});
+    res.json({ static:"succeed",  data: "logout successfully!" }); 
+
 };
 /**logout section finesh */
 
@@ -72,9 +76,7 @@ memberController.createToken = (result) => {
     const upload_data = {
       _id: result._id,
       mb_nick: result.mb_nick,
-      mb_type: result.mb_type,
-      mb_phone: result.mb_phone,
-      mb_status: result.mb_status, //qanchalik malumot soralsa token uzayip ketadi
+      mb_type: result.mb_type, //qanchalik malumot soralsa token uzayip ketadi
     };
 
     const token = jwt.sign(upload_data, process.env.SECRET_TOKEN, { 
@@ -91,6 +93,7 @@ memberController.checkMyAuthentication = (req, res) => {
   try{
     console.log("GET cont/checkMyAuthentication");
     let token = req.cookies['access_token'];
+
     console.log("token:::", token);
 
     const member = token ? jwt.verify(token, process.env.SECRET_TOKEN) : null;
@@ -102,3 +105,29 @@ memberController.checkMyAuthentication = (req, res) => {
     throw err;
   }
 };
+
+memberController.getChosenMember = async (req, res) => {
+  try{
+    console.log("GET cont/getChosenMember");
+    const id = req.params.id;
+    const member = new Member();
+    const result = await member.getChosenMemberData(req.member, id);
+
+    res.json({ static:"succeed", data: result }); 
+    console.log("result:::", result);
+  } catch(err){
+    console.log(`ERROR cont/getChosenMember, ${err.message}`);
+    res.json({state: "fail", message: err.message});
+  }
+};
+
+memberController.retrieveAuthMember = (req, res, next) => {
+  try{
+    const token = req.cookies["access_token"];
+    req.member = token ? jwt.verify(token, process.env.SECRET_TOKEN) : null;
+    next();
+  }catch(err){
+    console.log(`ERROR cont/retrieveAuthentication, ${err.message}`);
+    next();
+  }
+}

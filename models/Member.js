@@ -5,6 +5,7 @@ const MemberModel = require("../schema/member.model");
 const Definer = require("../lib/mistake");
 const assert = require("assert");
 const bcrypt = require("bcryptjs");                                
+const { shapeIntoMongooseObjectId } = require("../lib/config");
         
 class Member {
     constructor() {
@@ -74,6 +75,29 @@ class Member {
 
 
 /**logout section finesh */
+    async getChosenMemberData(member, id) {         
+        try{
+            id = shapeIntoMongooseObjectId(id);
+            console.log("memeber::", member);
+            
+            if(member){
+                //condition if not seen before
+            }
+
+            const result = await this.memberModel
+            .aggregate([{ $match: { _id: id, mb_status: "ACTIVE" }},
+                {$unset: "mb_password"},
+            ])                                              //agregate()methodi asosas deepSeachingda ishlatiladi
+            .exec();                                                       //bizga bu yerda kiritilyatgan id ni db dagi _id yoki boshqa kerakli narsani EX mb_status bilan solishtiradi               
+
+            assert.ok(result, Definer.general_err2);
+            return result[0];
+            
+        }catch(err) {
+            throw err;
+        }
+    }
 }
+
 
 module.exports = Member;
