@@ -70,7 +70,7 @@ const {
                 message: "{VALUE} is not among permitted values"
             }
         },
-        mb_view: {
+        mb_views: {
             type: Number,
             required: false,
             default: 0 //kiritilmaganda default 0 bolsin degani
