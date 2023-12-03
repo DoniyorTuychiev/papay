@@ -2,6 +2,8 @@ const assert = require("assert");
 const Definer = require("../lib/mistake");
 const ProductModel = require("../schema/product.model");
 const { shapeIntoMongooseObjectId } = require("../lib/config");
+const memberModel = require("../schema/member.model");
+const Member = require("./Member");
 
 class Product {
     constructor() {
@@ -44,6 +46,33 @@ class Product {
         }
           
     }
+
+    async getChosenProductData(member, id){
+        try{
+            const auth_mb_id = shapeIntoMongooseObjectId(member?._id);
+            id = shapeIntoMongooseObjectId(id);
+
+            if(member){
+                const membber_ob = new Member();
+                membber_ob.viewChosenItemByMember(member, id, "product");
+            }
+
+            const result = await this.productModel
+            .aggregate([ //upload qilinganda aggregate updatedan oldingi datani jonatadi keyin update data keladi
+                {$match: { _id: id, product_status: "PROCESS"}},
+                //TO DO: check auth member product likes
+            ])
+            .exec();
+
+            assert.ok(result, Definer.general_err1);
+            return result;
+        }catch(err){
+            throw err;
+        }
+    }
+
+
+    /********************************************************************** */
 
     async getAllProductsDataResto(member){
         try{

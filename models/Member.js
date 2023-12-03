@@ -89,8 +89,9 @@ class Member {
             const result = await this.memberModel
             .aggregate([{ $match: { _id: id, mb_status: "ACTIVE" }},
                 {$unset: "mb_password"},
-            ])                                              //agregate()methodi asosas deepSeachingda ishlatiladi
-            .exec();                                                       //bizga bu yerda kiritilyatgan id ni db dagi _id yoki boshqa kerakli narsani EX mb_status bilan solishtiradi               
+                   //TO DO: check auth member liked the chosen member                                      
+            ])                                                                //agregate()methodi asosas deepSeachingda ishlatiladi
+              .exec();                                                       //bizga bu yerda kiritilyatgan id ni db dagi _id yoki boshqa kerakli narsani EX mb_status bilan solishtiradi               
 
             assert.ok(result, Definer.general_err2);
             return result[0];
@@ -99,7 +100,7 @@ class Member {
             throw err;
         }
     }
-
+    //1) member, 2)view_ref_id, 3)group_type)=>qanaqa target bolyapti=>3)product;qaysi product ref boryapti yani id si=> 2) qovurdoq => id; Kim koryapti => 1) uni id si
     async viewChosenItemByMember (member, view_ref_id, group_type) {
         try{
             view_ref_id = shapeIntoMongooseObjectId(view_ref_id);
@@ -109,7 +110,7 @@ class Member {
 
             //validation needed
             const isValid = await view.validateChosenTarget(view_ref_id, group_type);
-            assert.ok(isValid, Definer.general_err2);
+            assert.ok(isValid, Definer.general_err2);   //
 
             //logged user has seen target before
             const doesExist = await view.checkViewExistence(view_ref_id);

@@ -1,12 +1,14 @@
 const mongoose = require("mongoose");
 const ViewModel = require("../schema/view.model");
-const memberModel = require("../schema/member.model");
+const MemberModel = require("../schema/member.model");
+const ProductModel = require("../schema/product.model");
 
 
 class View {
     constructor(mb_id) {
         this.viewModel = ViewModel;
-        this.memberModel = memberModel;
+        this.memberModel = MemberModel;
+        this.productModel = ProductModel;
         this.mb_id = mb_id;
     }
 
@@ -22,6 +24,14 @@ class View {
                   })
                   .exec();
                   break;
+                case 'product':
+                  result = await this.productModel
+                  .findOne({
+                      _id: view_ref_id, 
+                      product_status: "PROCESS",
+                  })
+                  .exec();
+                  break;
             }
             return !!result; //return !!result; bu yozishda result qiymati true bolsa trueni fale bolsa falseni qaytari
         }catch(err){
@@ -31,7 +41,7 @@ class View {
 
     async insertMemberView(view_ref_id, group_type) {
         try{
-            const new_view = new this.ViewModel({
+            const new_view = new this.viewModel({
                 mb_id: this.mb_id,
                 view_ref_id: view_ref_id,
                 view_group: group_type,
@@ -51,13 +61,23 @@ class View {
     async modifyItemViewCounts(view_ref_id, group_type) {
         try {
             switch(group_type) {
-                case "member":
-                await this.memberModel //shuyerda videoda result yozilip qoganiga 3 soat qidirdim
+             case "member":
+                await this.memberModel 
                 .findByIdAndUpdate(
                     {
                         _id: view_ref_id,
                     }, 
                         { $inc: {mb_views: 1 }}
+                )
+                .exec();
+               break;
+             case "product":
+                await this.productModel 
+                .findByIdAndUpdate(
+                    {
+                        _id: view_ref_id,
+                    }, 
+                        { $inc: {product_views: 1 }}
                 )
                 .exec();
                break;
