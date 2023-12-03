@@ -46,6 +46,7 @@ memberController.login = async (req, res) => {
           member = new Member(),
           result = await member.loginData(data);
           console.log(result);
+          
           const token = memberController.createToken(result);
           console.log("this is token:", token);
 
