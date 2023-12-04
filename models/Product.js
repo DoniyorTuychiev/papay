@@ -53,8 +53,8 @@ class Product {
             id = shapeIntoMongooseObjectId(id);
 
             if(member){
-                const membber_ob = new Member();
-                membber_ob.viewChosenItemByMember(member, id, "product");
+                const member_ob = new Member();
+                member_ob.viewChosenItemByMember(member, id, "product");
             }
 
             const result = await this.productModel
@@ -102,6 +102,7 @@ class Product {
             throw err;
         }
     }
+
     async updataChosenProductData(id, updated_data, mb_id){
         try{
             id = shapeIntoMongooseObjectId(id);

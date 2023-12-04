@@ -3,7 +3,7 @@ const express = require("express");
 const router = express.Router();
 const memberController = require("./controllers/memberController");
 const productController = require("./controllers/productController");
-
+const restaurantController = require("./controllers/restaurantController");
 /*************************
  *      REST API         *
  ************************/
@@ -39,5 +39,11 @@ router.get("/menu", (req, res) => {
 router.get("/community", (req, res) => {
     res.send("community sahifasidasiz");
 });        
+
+//Restaurants related routers
+
+router.get("/restaurants", 
+    memberController.retrieveAuthMember,
+    restaurantController.getRestaurants,);
 
 module.exports = router; 
