@@ -37,7 +37,8 @@ class Product {
                 ]) 
                 .exec(); 
 
-                console.log("result:::", result);
+            console.log("getAllProductsData For OSCAR result:::", result);
+                
 
             assert.ok(result, Definer.general_err1);
             return result;
@@ -63,7 +64,7 @@ class Product {
                 //TO DO: check auth member product likes
             ])
             .exec();
-
+            console.log("For OSCAR resdult:::", result);
             assert.ok(result, Definer.general_err1);
             return result;
         }catch(err){
