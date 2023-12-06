@@ -103,8 +103,8 @@ class Member {
     //1) member, 2)view_ref_id, 3)group_type)=>qanaqa target bolyapti=>3)product;qaysi product ref boryapti yani id si=> 2) qovurdoq => id; Kim koryapti => 1) uni id si
     async viewChosenItemByMember (member, view_ref_id, group_type) {
         try{
-            view_ref_id = shapeIntoMongooseObjectId(view_ref_id);
-            const mb_id = shapeIntoMongooseObjectId(member._id);
+            view_ref_id = shapeIntoMongooseObjectId(view_ref_id); //<= Kim koryapti
+            const mb_id = shapeIntoMongooseObjectId(member._id);  //<= Biz koryapmiz yani ligin bolgan user
         
             const view = new View(mb_id);
 

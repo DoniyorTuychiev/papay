@@ -36,8 +36,6 @@ class Product {
 
                 ]) 
                 .exec(); 
-
-            console.log("getAllProductsData For OSCAR result:::", result);
                 
 
             assert.ok(result, Definer.general_err1);
@@ -55,7 +53,7 @@ class Product {
 
             if(member){
                 const member_ob = new Member();
-                member_ob.viewChosenItemByMember(member, id, "product");
+                await member_ob.viewChosenItemByMember(member, id, "product");
             }
 
             const result = await this.productModel

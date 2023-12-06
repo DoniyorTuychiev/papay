@@ -28,7 +28,9 @@ router.get("/products/:id",
     memberController.retrieveAuthMember,
     productController.getChosenProduct);
 
-
+router.get("/restaurants/:id", 
+    memberController.retrieveAuthMember,
+    restaurantController.getChosenRestaurant);
 
 
 /********************************* */

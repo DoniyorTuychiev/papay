@@ -3,6 +3,7 @@ const MemberModel = require("../schema/member.model");
 const Definer = require("../lib/mistake");
 const assert = require("assert");
 const { shapeIntoMongooseObjectId } = require("../lib/config");
+const Member = require("./Member");
 
 class Restaurant {
     constructor(){
@@ -58,11 +59,34 @@ class Restaurant {
             })
             .exec();
 
-            assert(result, Definer.general_err1);
+            assert.ok(result, Definer.general_err1);
             return result;
         }catch(err){
             throw err;
         }
+    }
+
+    async getChosenRestaurantData( member, id) {
+        try{
+            id = shapeIntoMongooseObjectId(id);
+
+            if(member){
+                const member_ob = new Member();
+                await member_ob.viewChosenItemByMember(member, id, "member");//agar  asyc method oldidan await qoyilmasa malumotlar ozgarishi kutilmasdan keyingi etapga otip ketiladi shuning uchun await qoyilishi shart
+            }
+
+            const result = await this.memberModel
+                .findOne({
+                    _id: id,
+                    mb_status: "ACTIVE", 
+                })
+                .exec();
+
+            assert.ok(result, Definer.general_err2);
+            return result;
+        }catch(err){
+            throw(err);
+        }     
     }
 
     async updateRestaurantByAdmin(update_data) {
