@@ -5,12 +5,12 @@ const Schema = mongoose.Schema;
 const orderItemSchema = new mongoose.Schema(
     {
     item_quentity: {
-        typeof: Number,
+        type: Number, //typeof ema type tori typofda xatolik qaytadi. shuning uchun type ga ozgartirdim
         required: true,
 
     },
     item_price: {
-        typeof: Number,
+        type: Number,
         required: true,
     },
     order_id: {

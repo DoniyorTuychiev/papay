@@ -1,20 +1,19 @@
 const mongoose = require("mongoose");
-const {} = require("../lib/config");
-const { ObjectId } = require("mongodb");
+const {order_status_enums} = require("../lib/config");
 const Schema = mongoose.Schema;
 
 const orderSchema = new mongoose.Schema(
     {
     order_total_amount: {
-        typeof: Number,
+        type: Number,
         required: true,
     },
     order_delivery_cost: {
-        typeof: Number,
+        type: Number,
         required: true,
     },
     order_status: {
-        typeof: Number,
+        type: Number,
         required: false,
         enum: {
             values: order_status_enums,
