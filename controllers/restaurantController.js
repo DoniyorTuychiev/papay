@@ -11,7 +11,7 @@ let restaurantController = module.exports ;
 restaurantController.getRestaurants = async (req, res) => {
   try{
     console.log("GET: cont/getRestaurants");
-    const data = req.query;
+    const data = req.query;// req.query bu linkda keluvchi soroqdan keyin keluvchi req lardir Ex: order, mb_nick ...
     const restaurant = new Restaurant();
     const result = await restaurant.getRestaurantsData(req.member, data);
 

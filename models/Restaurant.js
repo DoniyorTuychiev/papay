@@ -16,7 +16,7 @@ class Restaurant {
             let match = {mb_type: "RESTAURANT", mb_status: "ACTIVE"};
             let aggregationQuery = [];
             data.limit = data["limit"] * 1; //bu yerda limit 4 ga page 1 ga teng yani 1-page da kopi bilan 4 ta restaurantni chiqar degani
-            data.page = data["page"] * 1;
+            data.page = data["page"] * 1;   // 1* sababi url dan kelyotkani uchun string boladi *1 esa numberga aylantirib beradi. numberga aylantirishni 4 xil usuli bor
 
             switch (data.order) {
                 case "top":
@@ -71,7 +71,7 @@ class Restaurant {
             id = shapeIntoMongooseObjectId(id);
 
             if(member){
-                const member_ob = new Member();
+                const member_ob = new Member(); //RestaurantServiceModeli ichida MemberServiceModeli dan foydalanganimiz uchun member_object yasab olyapmiz
                 await member_ob.viewChosenItemByMember(member, id, "member");//agar  asyc method oldidan await qoyilmasa malumotlar ozgarishi kutilmasdan keyingi etapga otip ketiladi shuning uchun await qoyilishi shart
             }
 

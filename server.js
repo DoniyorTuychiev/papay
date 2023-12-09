@@ -20,7 +20,7 @@ mongoose.connect(
             console.log("MongoDB connection succead");
             // console.log(goose);           
             const app = require("./app");
-            const server = http.createServer(app);
+            const server = http.createServer(app); //socet ni ishlatishimiz uchun http dan instence olindi. shuning uchun app ni shunde jonatmasdan http
              
             let PORT = process.env.PORT || 4000;
             server.listen(PORT, function () {

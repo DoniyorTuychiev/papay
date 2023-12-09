@@ -18,16 +18,16 @@ const store = new MongoDBStore({
 //1 - kirishCode
 app.use(express.static("public"));
 app.use(express.json()); 
-app.use(express.urlencoded ({extended: true}));  
-app.use(cookieParser());
+// app.use(express.urlencoded ({extended: true}));  
+app.use(cookieParser()); //cookieParser ni ishlatish cookie ichidan access_tokenni ajratib olishga ruxsat beradi
 
 // 2- sessionCode
 
 //yaratilgan sessiondan foydalanish
 app.use( 
     session({
-        secret: process.env.SESSION_SECRET,//secret ni hosil qilamiz bu encoding va decoding uchun yordam beradi
-        cookie: {                         //yani session id ni encode& decode qilibturadi
+        secret: process.env.SESSION_SECRET, //secret ni hosil qilamiz bu encoding va decoding uchun yordam beradi
+        cookie: {                           //yani session id ni encode& decode qilibturadi
             maxAge: 1000 * 60 * 30,
         },
         store: store,

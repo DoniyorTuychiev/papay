@@ -20,7 +20,7 @@ router.get(
     );
 
 //boshqa routerlar
-router.post("/products", 
+router.post("/products", //router da n point bu url yani "/products" boladi
     memberController.retrieveAuthMember,
     productController.getAllProducts);
 
