@@ -32,7 +32,8 @@ class Order {
                 mb_id,
             );
             console.log("order_id:::", order_id);
-//TO DO
+
+            await this.recordOrderItemsData(order_id, data);
 
         return order_id;
         }catch(err){
@@ -52,11 +53,47 @@ class Order {
         const result = await new_order.save();
         assert.ok(result, Definer.order_err1);
         console.log("result:::", result);
+        
 
         return result._id;
         }catch(err){
             console.log(err);
             throw new Error(Definer.order_err1);
+        }
+    }
+    
+    async recordOrderItemsData (order_id, data) {
+       try{
+           const pro_list = data.map( async (item) => {
+               return await this.saveOrderItemsData(item, order_id);
+           });
+           const results = await Promise.all(pro_list);//pro_listda hammasini bajarilishini majbur qiluvchi mantiq Promis.all() har bir asyc method lar bajarilgach keyingisiga otishga majbur qiladi
+           console.log("results:::", results);
+           return true;
+       }catch(err){
+           throw err;
+       }
+    }
+
+    async saveOrderItemsData (item, order_id) {
+        try{
+          order_id = shapeIntoMongooseObjectId(order_id);
+          item._id = shapeIntoMongooseObjectId(item._id);
+
+          const order_item = new this.OrderItemModel({
+            item_quentity: item["quentity"],
+            item_price: item["price"],
+            order_id: order_id,
+            product_id: item["_id"]
+          });
+          const result = await order_item.save();
+          console.log("order_item::::", order_item);
+          assert.ok(result, Definer.auth_err2);
+
+          return "created";
+        }catch(err){
+            console.log(err);
+            throw new Error(Definer.order_err2);
         }
     }
 }
