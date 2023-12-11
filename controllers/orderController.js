@@ -36,18 +36,17 @@ orderController.getMyOrders = async (req, res) => {
   }
 };
 
-// orderController.editChosenOrder = async (req, res) => {
-//   try{
-//     console.log("GET: cont/editChosenOrder");
-//     assert.ok(req.member, Definer.auth_err5);
-    
-//     const order = new Order();
-//     const result = await order.editChosenOrderData (req.member, req.body);
-    
-//     res.json({ static: "succeed", data: result });
-//   }catch(err){
-//     console.log(`ERROR, cont/editChosenOrder, ${err.message}`);
-//     res.json({ state: "fail", message: err.message });
-//   }
-// };
+orderController.editChosenOrder = async (req, res) => {
+  try {
+    console.log("GET: cont/editChosenOrder");
+    assert.ok(req.member, Definer.auth_err5);
 
+    const order = new Order();
+    const result = await order.editChosenOrderData(req.member, req.body);
+
+    res.json({ static: "succeed", data: result });
+  } catch (err) {
+    console.log(`ERROR, cont/editChosenOrder, ${err.message}`);
+    res.json({ state: "fail", message: err.message });
+  }
+};

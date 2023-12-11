@@ -52,11 +52,11 @@ router.get(
   orderController.getMyOrders
 );
 
-// router.get(
-//   "/order/edit",
-//   memberController.retrieveAuthMember,
-//   orderController.editChosenOrder
-// );
+router.post(
+  "/orders/edit",
+  memberController.retrieveAuthMember,
+  orderController.editChosenOrder
+);
 
 /********************************* */
 router.get("/menu", (req, res) => {

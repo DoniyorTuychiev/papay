@@ -105,14 +105,14 @@ class Order {
       const result = await this.orderModel
         .aggregate([
           { $match: matches },
-          { $sort: { createdAt: -1 } }, 
+          { $sort: { createdAt: -1 } },
           {
             $lookup: {
               from: "orderitems", //0 matches orqali hosil bolgan myorders array ni orders collectiondan izla va
               localField: "_id", //1)uni ichidagi buyurtma raqamim yani _id ga teng bolgan maxsulotlarni
               foreignField: "order_id", //2) orderitems collection buyurtma qilingan maxsulotdagi order_idsiga teng bolganlarini
               as: "order_items", //4)"order_items" nomi ostiga olib ber
-            },                //1) mb_id(logined) => mb_id(orders ichidagi)   2) _id (orders ichidagi) => order_id (orderitems ichidagi)
+            }, //1) mb_id(logined) => mb_id(orders ichidagi)   2) _id (orders ichidagi) => order_id (orderitems ichidagi)
           },
           {
             $lookup: {
@@ -130,13 +130,24 @@ class Order {
     }
   }
 
-  // async editChosenOrderData(member, data) {
-  //   try{
+  async editChosenOrderData(member, data) {
+    try {
+      const mb_id = shapeIntoMongooseObjectId(member._id),
+       order_id = shapeIntoMongooseObjectId(data.order_id),
+       order_status = data.order_status.toUpperCase();
 
-  //   }catch(err){
-  //     throw err;
-  //   }
-  // }
+      const result = await this.orderModel.findByIdAndUpdate(
+        {mb_id: mb_id, _id: order_id},
+        {order_status: order_status},
+        {runValidators: true, lean: true, returnDocument: "after"}
+      ).exec();
+      console.log("result:::", result);
+
+      assert.ok(result, Definer.auth_err3);
+    } catch (err) {
+      throw err;
+    }
+  }
 }
 
 module.exports = Order;
