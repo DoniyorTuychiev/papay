@@ -1,47 +1,53 @@
-
 <%- include ('includes/header') %>
-<link rel="stylesheet" type="text/css" href=" /css/login.css">
-<link rel="stylesheet" type="text/css" href="/css/signup.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/> 
+<link rel="stylesheet" type="text/css" href=" /css/login.css" />
+<link rel="stylesheet" type="text/css" href="/css/signup.css" />
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+/>
 
 <body>
-        <!-- form bu tradetional reqiesting boladi -->
-        <form class="login_container" action="/resto/login" method="POST">
-           <div class="login_frame"  style="height: 460px;">         
-                <div class="login_top">
-                        <span>Saytga Kirish</span>
-                        <div>Bosh sahifaga kirish: 
-                                <a href="/resto" style="color: blue;">Home</a></div>
-                        <p>Royxatdan otmoqchimisiz? 
-                                <a href="/resto/sign-up" style="color:blue;">Royhattadan otish</a></p>
-                </div> 
-                <div class="login_input_frame">
-                        <div class="login_input_container">
-                                <label>Foydalanuvchining ismi:</label>
-                                <input 
-                                type="text" 
-                                name="mb_nick" 
-                                placeholder="Foydalanuvchining ismi"
-                                required>
-                        </div>
-                        <div class="login_input_container">
-                                <label >Password kiriting:</label>
-                                <input 
-                                type="password" 
-                                name="mb_password"
-                                placeholder="Password" 
-                                value="" 
-                                required>
-                                <!-- <span>
+  <!-- form bu tradetional reqiesting boladi -->
+  <form class="login_container" action="/resto/login" method="POST">
+    <div class="login_frame" style="height: 460px">
+      <div class="login_top">
+        <span>Saytga Kirish</span>
+        <div>
+          Bosh sahifaga kirish: <a href="/resto" style="color: blue">Home</a>
+        </div>
+        <p>
+          Royxatdan otmoqchimisiz?
+          <a href="/resto/sign-up" style="color: blue">Royhattadan otish</a>
+        </p>
+      </div>
+      <div class="login_input_frame">
+        <div class="login_input_container">
+          <label>Foydalanuvchining ismi:</label>
+          <input
+            type="text"
+            name="mb_nick"
+            placeholder="Foydalanuvchining ismi"
+            value=""
+            required
+          />
+        </div>
+        <div class="login_input_container">
+          <label>Password kiriting:</label>
+          <input
+            type="password"
+            name="mb_password"
+            placeholder="Password"
+            value=""
+            required
+          />
+          <!-- <span>
                                         <i class="fa-solid fa-eye"></i>
                                 </span> -->
-                        </div>
-                </div>
+        </div>
+      </div>
 
-                <button class="login_btn btn" name="login" type="submit">Kirish</button>
-
-           </div>
-        </form>        
+      <button class="login_btn btn" name="login" type="submit">Kirish</button>
+    </div>
+  </form>
 </body>
 <%- include ('includes/footer') %>
-

@@ -1,32 +1,33 @@
 const mongoose = require("mongoose");
-const {order_status_enums} = require("../lib/config");
+const { order_status_enums } = require("../lib/config");
 const Schema = mongoose.Schema;
 
 const orderSchema = new mongoose.Schema(
-    {
+  {
     order_total_amount: {
-        type: Number,
-        required: true,
+      type: Number,
+      required: true,
     },
     order_delivery_cost: {
-        type: Number,
-        required: true,
+      type: Number,
+      required: true,
     },
     order_status: {
-        type: Number,
-        required: false,
-        enum: {
-            values: order_status_enums,
-            message: "{VALUE}   is not among permitted enum values!",
-        }
+      type: String,
+      required: false,
+      default: "PAUSED", //shu qolip ketkani uchun bosh array qaytdi db dan
+      enum: {
+        values: order_status_enums,
+        message: "{VALUE}   is not among permitted enum values!",
+      },
     },
     mb_id: {
-        type: Schema.Types.ObjectId,
-        ref: "Member", 
-        required: false,
-    }
-},
-    {timestamps: {createdAt: true}}
+      type: Schema.Types.ObjectId,
+      ref: "Member",
+      required: false,
+    },
+  },
+  { timestamps: { createdAt: true } }
 );
 
 module.exports = mongoose.model("Order", orderSchema);
