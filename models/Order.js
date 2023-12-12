@@ -152,6 +152,7 @@ class Order {
       console.log("result:::", result);
 
       assert.ok(result, Definer.auth_err3);
+      return result;
     } catch (err) {
       throw err;
     }
