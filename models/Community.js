@@ -50,9 +50,10 @@ class Community {
               localField: "mb_id",
               foreignField: "_id",
               as: "member_data",
-            }
-          }
-        ])
+            },
+          },
+          {$unwind: '$member_data'},//*{$unwind: '$member_data'} => buni yozish mb_data ni ichida arr bolishi shart emas chunki mb_datani mb_collectiondan olip kelinyapti 
+        ])                          //*shuning uchun bitta object boladigan err ni ichidagi object ni olib toridan-tori mb_data qiymatiga qoyib berilishini tamanlaydi
         .exec();
         assert.ok(result, Definer.article_err2);
 

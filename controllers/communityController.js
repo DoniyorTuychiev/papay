@@ -36,8 +36,8 @@ communityController.getMemberArticles = async (req, res) => {
     console.log("GET: cont/getMemberArticles");
     const community = new Community();
     
-    const mb_id = req.query.mb_id !== "none" ? req.query.mb_id : req.member._id;;
-    assert.ok(mb_id, Definer.article_err1);
+    const mb_id = req.query.mb_id !== "none" ? req.query.mb_id : req.member?._id;//*req.member._id => check qilish uchun ? belgisini qoymasak agarda mb logout bolip ketsa 40 qatorga bormay
+    assert.ok(mb_id, Definer.article_err1);                                      //*otolmaydi va null ni qiymatini yani _id ni oqiy olmayapman deb err qaytadi shuning uchun operatsadan oldin mb ni mavjudligi tekshiriladi
 
     const result = await community.getMemberArticlesData(
       req.member,
