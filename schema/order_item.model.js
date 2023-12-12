@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 const orderItemSchema = new mongoose.Schema(
   {
-    item_quentity: {
+    item_quantity: {
       type: Number, //typeof ema type tori typofda xatolik qaytadi. shuning uchun type ga ozgartirdim
       required: true,
     },
