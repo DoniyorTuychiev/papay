@@ -1,9 +1,8 @@
-const mongoose = require("mongoose");
+
 const OrderModel = require("../schema/order.model");
 const OrderItemModel = require("../schema/order_item.model");
 const {
-  shapeIntoMongooseObjectId,
-  order_status_enums,
+  shapeIntoMongooseObjectId
 } = require("../lib/config");
 const Definer = require("../lib/mistake");
 const assert = require("assert");
@@ -22,7 +21,7 @@ class Order {
       const mb_id = shapeIntoMongooseObjectId(member?._id);
 
       data.map((item) => {
-        order_total_amount = +item["quentity"] * item["price"];
+        order_total_amount += item["quentity"] * item["price"];
       });
       if (order_total_amount < 100) {
         delivery_cost = 2;
@@ -132,6 +131,7 @@ class Order {
     }
   }
 
+  //*develop EditChosenOrder api business logic by_79*
   async editChosenOrderData(member, data) {
     try {
       const mb_id = shapeIntoMongooseObjectId(member._id),

@@ -55,6 +55,7 @@ router.get(
   orderController.getMyOrders
 );
 
+//*develop EditChosenOrder api business logic by_79*
 router.post(
   "/orders/edit",
   memberController.retrieveAuthMember,
@@ -74,6 +75,11 @@ router.post(
   communityController.createArticle
 );
 
+router.get(
+  "/community/articles",
+  memberController.retrieveAuthMember,
+  communityController.getMemberArticles
+);
 /********************************* */
 router.get("/menu", (req, res) => {
   res.send("menu sahifasidasiz");
