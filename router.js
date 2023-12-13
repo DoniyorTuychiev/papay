@@ -35,12 +35,6 @@ router.get(
   productController.getChosenProduct
 );
 
-router.get(
-  "/restaurants/:id",
-  memberController.retrieveAuthMember,
-  restaurantController.getChosenRestaurant
-);
-
 //Order related routers
 
 router.post(
@@ -80,6 +74,12 @@ router.get(
   memberController.retrieveAuthMember,
   communityController.getMemberArticles
 );
+
+router.get(
+  "/community/target",
+  memberController.retrieveAuthMember,
+  communityController.getArticles
+);
 /********************************* */
 router.get("/menu", (req, res) => {
   res.send("menu sahifasidasiz");
@@ -95,6 +95,12 @@ router.get(
   "/restaurants",
   memberController.retrieveAuthMember,
   restaurantController.getRestaurants
+);
+
+router.get(
+  "/restaurants/:id",
+  memberController.retrieveAuthMember,
+  restaurantController.getChosenRestaurant
 );
 
 module.exports = router;

@@ -1,9 +1,6 @@
-
 const OrderModel = require("../schema/order.model");
 const OrderItemModel = require("../schema/order_item.model");
-const {
-  shapeIntoMongooseObjectId
-} = require("../lib/config");
+const { shapeIntoMongooseObjectId } = require("../lib/config");
 const Definer = require("../lib/mistake");
 const assert = require("assert");
 
@@ -106,16 +103,16 @@ class Order {
           { $match: matches },
           { $sort: { createdAt: -1 } },
           {
-            $lookup: {
-              from: "orderitems", //0 matches orqali hosil bolgan myorders array ni orders collectiondan izla va
-              localField: "_id", //1)uni ichidagi buyurtma raqamim yani _id ga teng bolgan maxsulotlarni
+            $lookup: {                  //*bu qismda("orderitems") db dagi collection nomi qanday bolsa shunde yoziladi
+              from: "orderitems",       //0 matches orqali hosil bolgan myorders array ni orders collectiondan izla va
+              localField: "_id",        //1)uni ichidagi buyurtma raqamim yani _id ga teng bolgan maxsulotlarni
               foreignField: "order_id", //2) orderitems collection buyurtma qilingan maxsulotdagi order_idsiga teng bolganlarini
-              as: "order_items", //4)"order_items" nomi ostiga olib ber
-            }, //1) mb_id(logined) => mb_id(orders ichidagi)   2) _id (orders ichidagi) => order_id (orderitems ichidagi)
+              as: "order_items",        //4)"order_items" nomi ostiga olib ber(bu nom ixtiyoriy)
+            },                          //1) mb_id(logined) => mb_id(orders ichidagi)   2) _id (orders ichidagi) => order_id (orderitems ichidagi)
           },
           {
             $lookup: {
-              from: "products",
+              from: "products",         //*bu qismda db dagi collection nomi qanday bolsa shunde yoziladi
               localField: "order_items.product_id",
               foreignField: "_id",
               as: "product_data",
@@ -124,7 +121,7 @@ class Order {
         ])
         .exec();
       console.log("result:::", result);
-        
+
       return result;
     } catch (err) {
       throw err;
@@ -143,10 +140,10 @@ class Order {
           { mb_id: mb_id, _id: order_id },
           { order_status: order_status },
           {
-             runValidators: true, 
-             lean: true, 
-             returnDocument: "after" 
-            }
+            runValidators: true,
+            lean: true,
+            returnDocument: "after",
+          }
         )
         .exec();
       console.log("result:::", result);

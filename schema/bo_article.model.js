@@ -48,7 +48,7 @@ const boArticleSchema = new mongoose.Schema(
     },
     mb_id: {
       type: Schema.Types.ObjectId,
-      ref: "Member",
+      ref: "Member",  //Member servis modeldan refren olinadi
       required: true,
     },
   },
