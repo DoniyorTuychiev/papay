@@ -80,6 +80,13 @@ router.get(
   memberController.retrieveAuthMember,
   communityController.getArticles
 );
+
+router.get(
+  "/community/single-article/:art_id",
+  memberController.retrieveAuthMember,
+  communityController.getChosenArticle
+);
+
 /********************************* */
 router.get("/menu", (req, res) => {
   res.send("menu sahifasidasiz");
