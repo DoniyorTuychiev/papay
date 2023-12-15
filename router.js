@@ -101,6 +101,11 @@ router.post(
   memberController.retrieveAuthMember,
   followController.unsubscribe
 );
+
+router.get(
+  "/follow/followings",
+  followController.getMemberfollowings
+);
 /********************************* */
 router.get("/menu", (req, res) => {
   res.send("menu sahifasidasiz");

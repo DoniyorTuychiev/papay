@@ -141,7 +141,7 @@ class Order {
           { order_status: order_status },
           {
             runValidators: true,
-            lean: true,
+            lean: true, //bu yerda lean:true yzoilmasayam code ishledi lekin boshqa parametr  qoshib bolmaydi
             returnDocument: "after",
           }
         )
