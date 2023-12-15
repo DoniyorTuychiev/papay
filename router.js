@@ -95,6 +95,12 @@ router.post(
   memberController.retrieveAuthMember,
   followController.subscribe
 );
+
+router.post(
+  "/follow/unsubscribe",
+  memberController.retrieveAuthMember,
+  followController.unsubscribe
+);
 /********************************* */
 router.get("/menu", (req, res) => {
   res.send("menu sahifasidasiz");
