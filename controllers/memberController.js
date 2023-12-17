@@ -42,6 +42,7 @@ memberController.signup = async (req, res) => {
 memberController.login = async (req, res) => {
   try {
     console.log("POST: cont/login");
+
     const data = req.body;
     const member = new Member();
     const result = await member.loginData(data);

@@ -1,8 +1,9 @@
-const { shapeIntoMongooseObjectId } = require("../lib/config");
+const { shapeIntoMongooseObjectId, lookup_auth_member_following } = require("../lib/config");
 const FollowModel = require("../schema/follow.model");
 const MemberModel = require("../schema/member.model");
 const Definer = require("../lib/mistake");
 const assert = require("assert");
+const { lookup } = require("dns");
 
 class Follow {
   constructor() {
@@ -93,29 +94,63 @@ class Follow {
 
   async getMemberfollowingsData(inquiry) {
     try {
-      console.log("query:", inquiry);
       const subscriber_id = shapeIntoMongooseObjectId(inquiry.mb_id),
         page = inquiry.page * 1,
         limit = inquiry.limit * 1;
 
-      const result = await this.followModel
+      const result = await this.followModel //followSchimaModel ichida aggregate roting amalga oshyapti
         .aggregate([
           { $match: { subscriber_id: subscriber_id } },
           { $sort: { createdAt: -1 } },
           { $skip: (page - 1) * limit },
-          { $limit: limit },
+          { $limit: limit }, //oxrida follow document array qaytyapti
           {
             $lookup: {
-              from: "members",
-              localField: "follow_id",
-              foreignField: "_id",
-              as: "follow_member_data",
+              from: "members", //2) members collectionni ichidagi
+              localField: "follow_id", //1)follow document arrayidagi follow_id ni members collectionni ichidagi
+              foreignField: "_id", //3) _id ga tenglarini topib follow_member_data nomi ostida olib ber deyilyapti
+              as: "follow_member_data", //4) follow_member_data nomi ostida olib ber deyilyapti
             },
           },
-          { $unwind: "$follow_member_data" }, //*follow id faqat bitta mb_id ga tegishliligi sabab quydagi shart bilan arraydan uni object ga aylantiramiz
+          { $unwind: "$follow_member_data" }, //*follow id faqat bitta mb_id ga tegishliligi sabab quydagi shart bilan arraydan uni object ga aylantiramiz. bu yerda qiymat Ex: meni yoki boshqalani followerlari datasiga teng boladi
         ])
         .exec();
 
+      assert.ok(result, Definer.follow_err3);
+      return result;
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  async getMemberFollowersData(member, inquiry) {
+    try {
+      const follow_id = shapeIntoMongooseObjectId(inquiry.mb_id),
+        page = inquiry.page * 1,
+        limit = inquiry.limit * 1;
+
+      let aggregateQuery = [
+        { $match: { follow_id: follow_id } }, //follow_id: new ObjectId("6569deea1dc724bedb242a00" <= yani Men amaldagi User
+        { $sort: { createdAt: -1 } },
+        { $skip: (page - 1) * limit },// ayni vaqtda consoleda { $skip: 0 } ga teng chiqadi
+        { $limit: limit },
+        {
+          $lookup: {
+            from: "members",
+            localField: "subscriber_id",
+            foreignField: "_id",
+            as: "subscriber_member_data",
+          },
+        },
+        { $unwind: "$subscriber_member_data" },
+      ];
+
+      //following following backto subscriber
+      if (member && member._id === inquiry.mb_id) {
+        aggregateQuery.push(lookup_auth_member_following(follow_id));
+      }
+      const result = await this.followModel.aggregate(aggregateQuery).exec();
+      console.log("result:::", result);
       assert.ok(result, Definer.follow_err3);
       return result;
     } catch (err) {

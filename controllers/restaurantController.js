@@ -112,10 +112,11 @@ restaurantController.getLoginMyRestaurant = async (req, res) => {
 restaurantController.loginProcess = async (req, res) => {
   try {
     console.log("POST: cont/loginProcess");
+
     const data = req.body;
-    console.log("Data::", data);
-    const member = new Member(),
-      result = await member.loginData(data);
+    const member = new Member();
+    const result = await member.loginData(data);
+
     req.session.member = result;
     req.session.save(function () {
       result.mb_type === "ADMIN" //agar resultdagi mb ni type "ADMIN" bolsa "/resto/all-restaurant" ga yubor boshqa bolsa ("/resto/products/menu")

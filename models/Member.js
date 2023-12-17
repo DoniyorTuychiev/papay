@@ -1,5 +1,3 @@
-//servise Model
-//Agar model collection bilan togridan tori ishlasa u SERVICE Model deyiladi
 
 const MemberModel = require("../schema/member.model");
 const Definer = require("../lib/mistake");
@@ -41,14 +39,12 @@ class Member {
   ////////////////////////////////////////////////////////////
   /**login section start */
   async loginData(input) {
-    const new_member = new this.memberModel(input); //videoda yerga yozilmagan lekiin yozdim aks holda ishlamadi
+    //videoda yerga yozilmagan lekiin yozdim aks holda ishlamadi
     try {
       const member = await this.memberModel
-        .findOne(
-          { mb_nick: input.mb_nick },
-          { mb_nick: 1, mb_password: 1 } //????
-        )
+        .findOne({ mb_nick: input.mb_nick }, { mb_nick: 1, mb_password: 1 })
         .exec();
+        console.log("member:::", member);
       assert.ok(member, Definer.auth_err3);
       const isMatch = await bcrypt.compare(
         //db dagi password va inputdan kiritilgan password mosligini solishtirish uchun
