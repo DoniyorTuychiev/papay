@@ -147,7 +147,7 @@ class Follow {
 
       //following following backto subscriber
       if (member && member._id === inquiry.mb_id) {
-        aggregateQuery.push(lookup_auth_member_following(follow_id));
+        aggregateQuery.push(lookup_auth_member_following(follow_id, 'follows'));//'follows' servisModeldan req bolyapti degani
       }
       const result = await this.followModel.aggregate(aggregateQuery).exec();
       console.log("result:::", result);

@@ -1,19 +1,19 @@
-
 const MemberModel = require("../schema/member.model");
 const Definer = require("../lib/mistake");
 const assert = require("assert");
 const bcrypt = require("bcryptjs");
-const { shapeIntoMongooseObjectId } = require("../lib/config");
+const {
+  shapeIntoMongooseObjectId,
+  lookup_auth_member_following,
+} = require("../lib/config");
 const View = require("./View");
 
 class Member {
   constructor() {
     this.memberModel = MemberModel;
   }
-  /////////////////////////////////////////
-  /**signup section start */
+
   async signupData(input) {
-    // const new_member = new this.memberModel(input); buni tushunmadim nimaga ochirildi
     try {
       const salt = await bcrypt.genSalt();
       input.mb_password = await bcrypt.hash(input.mb_password, salt);
@@ -35,19 +35,15 @@ class Member {
       throw err;
     }
   }
-  /**signup section finesh */
-  ////////////////////////////////////////////////////////////
-  /**login section start */
+
   async loginData(input) {
-    //videoda yerga yozilmagan lekiin yozdim aks holda ishlamadi
     try {
       const member = await this.memberModel
         .findOne({ mb_nick: input.mb_nick }, { mb_nick: 1, mb_password: 1 })
         .exec();
-        console.log("member:::", member);
+      console.log("member:::", member);
       assert.ok(member, Definer.auth_err3);
       const isMatch = await bcrypt.compare(
-        //db dagi password va inputdan kiritilgan password mosligini solishtirish uchun
         input.mb_password,
         member.mb_password
       );
@@ -61,28 +57,26 @@ class Member {
     }
   }
 
-  /**login section finesh */
-  ///////////////////////////////////////////////////////////
-  /**logout section start */
-
-  /**logout section finesh */
   async getChosenMemberData(member, id) {
     try {
+      const auth_mb_id = shapeIntoMongooseObjectId(member?._id);
       id = shapeIntoMongooseObjectId(id);
       console.log("memeber::", member);
 
+      let aggregateQuery = [
+        { $match: { _id: id, mb_status: "ACTIVE" } },
+        { $unset: "mb_password" },
+      ];
       if (member) {
         //condition if not seen before
         await this.viewChosenItemByMember(member, id, "member");
+
+        aggregateQuery.push(
+          lookup_auth_member_following(auth_mb_id, "members")
+        ); //'members' servisModeldan req bolyapti degani
       }
 
-      const result = await this.memberModel
-        .aggregate([
-          { $match: { _id: id, mb_status: "ACTIVE" } },
-          { $unset: "mb_password" },
-          //TO DO: check auth member liked the chosen member
-        ]) //agregate()methodi asosas deepSeachingda ishlatiladi
-        .exec(); //bizga bu yerda kiritilyatgan id ni db dagi _id yoki boshqa kerakli narsani EX mb_status bilan solishtiradi
+      const result = await this.memberModel.aggregate(aggregateQuery).exec();
 
       assert.ok(result, Definer.general_err2);
       return result[0];
