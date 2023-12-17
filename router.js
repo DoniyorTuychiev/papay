@@ -23,6 +23,12 @@ router.get(
   memberController.getChosenMember
 );
 
+router.post("/member-liken", 
+memberController.retrieveAuthMember,
+memberController.likeMemberChosen
+);
+
+
 //boshqa routerlar
 router.post(
   "/products", //router da n point bu url yani "/products" boladi
