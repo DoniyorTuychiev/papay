@@ -1,7 +1,7 @@
 const assert = require("assert");
 const Definer = require("../lib/mistake");
 const ProductModel = require("../schema/product.model");
-const { shapeIntoMongooseObjectId } = require("../lib/config");
+const { shapeIntoMongooseObjectId, lookup_auth_member_liked } = require("../lib/config");
 const memberModel = require("../schema/member.model");
 const Member = require("./Member");
 
@@ -32,6 +32,8 @@ class Product {
           { $sort: sort },
           { $skip: (data.page * 1 - 1) * data.limit },
           { $limit: data.limit * 1 },
+          lookup_auth_member_liked(auth_mb_id),
+
 
           //TO DO: check auth member product likes
         ])
@@ -59,6 +61,7 @@ class Product {
           //upload qilinganda aggregate updatedan oldingi datani jonatadi keyin update data keladi
           { $match: { _id: id, product_status: "PROCESS" } },
           //TO DO: check auth member product likes
+          lookup_auth_member_liked(auth_mb_id),
         ])
         .exec();
       console.log("For OSCAR resdult:::", result);

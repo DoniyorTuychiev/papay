@@ -4,6 +4,7 @@ const assert = require("assert");
 const {
   shapeIntoMongooseObjectId,
   board_id_enum_list,
+  lookup_auth_member_liked,
 } = require("../lib/config");
 const Member = require("./Member");
 
@@ -58,7 +59,8 @@ class Community {
           },
           { $unwind: "$member_data" }, //*{$unwind: '$member_data'} => buni yozish mb_data ni ichida arr bolishi shart emas chunki mb_datani mb_collectiondan olip kelinyapti
           //todo: chech auth member liked the chosen target
-        ]) //*shuning uchun bitta object boladigan err ni ichidagi object ni olib toridan-tori mb_data qiymatiga qoyib berilishini tamanlaydi
+          lookup_auth_member_liked(auth_mb_id),
+        ]) 
         .exec();
       assert.ok(result, Definer.article_err2);
 
@@ -98,6 +100,7 @@ class Community {
           },
           { $unwind: "$member_data" },
           //todo: chech auth member liked the chosen target
+          lookup_auth_member_liked(auth_mb_id),
         ])
         .exec();
 
