@@ -29,7 +29,7 @@ class Community {
       return await article.save();
     } catch (mongo_err) {
       console.log("Mongo_err:::", mongo_err);
-      throw new Error(Definer.auth_err1); //agar bu yerda new mongo db err hosil qilmaganimizda postmandan kiritilgan celebrety  "message": "att: mongodb validation is failed!" ni ololmasdim. Mdb celebrety emas celebrity deb yozilgan enumda
+      throw new Error(Definer.mongo_validation_err1); //agar bu yerda new mongo db err hosil qilmaganimizda postmandan kiritilgan celebrety  "message": "att: mongodb validation is failed!" ni ololmasdim. Mdb celebrety emas celebrity deb yozilgan enumda
     }
   }
 

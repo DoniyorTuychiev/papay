@@ -140,7 +140,7 @@ memberController.likeMemberChosen = async (req, res) => {
       group_type = req.body.group_type;
 
     const member = new Member();
-    const result = await member.likeMemberChosenData(
+    const result = await member.likeChosenItemByMember(
       req.member,
       like_ref_id,
       group_type

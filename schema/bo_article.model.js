@@ -36,7 +36,7 @@ const boArticleSchema = new mongoose.Schema(
         message: "{VALUE} is not among permitted values",
       },
     },
-    art_like: {
+    art_likes: {
       type: Number,
       required: false,
       default: 0,
