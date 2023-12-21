@@ -57,7 +57,7 @@ const productSchema = new mongoose.Schema(
       },
     },
     product_volume: {
-      type: String,
+      type: Number,
       default: 1,
       required: function () {
         //bu yerda function tuzvolamiz yani ovqat emas ichimlik bolganda volumeni chaqir yani 1 Liter,2 liter kabi
