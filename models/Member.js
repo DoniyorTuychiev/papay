@@ -42,7 +42,7 @@ class Member {
 
   async loginData(input) {
     try {
-      const member = await this.memberModel
+            const member = await this.memberModel
         .findOne({ mb_nick: input.mb_nick }, { mb_nick: 1, mb_password: 1 })
         .exec();
       console.log("member:::", member);
@@ -56,7 +56,7 @@ class Member {
 
       return await this.memberModel.findOne({ mb_nick: input.mb_nick }).exec();
     } catch (err) {
-      console.log("err", err.message);
+console.log("err", err.message);
       throw err;
     }
   }

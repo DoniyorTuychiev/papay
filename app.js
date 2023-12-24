@@ -1,3 +1,4 @@
+
 console.log("web Serverni boshlash");
 const express = require("express");
 const app = express();
@@ -20,7 +21,7 @@ const store = new MongoDBStore({
 //1 - kirishCode
 app.use(express.static("public"));
 app.use(express.json());
-// app.use(express.urlencoded ({extended: true}));
+app.use(express.urlencoded ({extended: true}));//Bu comment bop qoganiga login.ejs fromdan input qabul qimadi
 app.use(cookieParser()); //cookieParser ni ishlatish cookie ichidan access_tokenni ajratib olishga ruxsat beradi
 
 // 2- sessionCode

@@ -1,6 +1,3 @@
-//Schima model
-
-//Agar model collection bilan emas model bilan toridan tori ishlasa u SCHIMA Model deyiladi
 
 const mongoose = require("mongoose");
 const {
@@ -13,7 +10,7 @@ const memberSchema = new mongoose.Schema(
   {
     mb_nick: {
       type: String,
-      required: true,
+      required: true,                         //
       index: { unique: true, sparse: true }, //ishlatilgan mb_nike ishlatilgan bolsa qayta ishlattirmaydi va ishlatilgan deydi
     },
     mb_phone: {
@@ -80,7 +77,7 @@ const memberSchema = new mongoose.Schema(
       required: false,
       default: 0,
     },
-    mb_follow_cnt: {
+    mb_follow_count: {
       type: Number,
       required: false,
       default: 0,
