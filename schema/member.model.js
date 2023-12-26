@@ -49,7 +49,7 @@ const memberSchema = new mongoose.Schema(
       type: String,
       required: false,
     },
-    mb_images: {
+    mb_image: {
       type: String,
       required: false,
     },

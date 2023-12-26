@@ -6,15 +6,6 @@ let memberController = module.exports;
 const jwt = require("jsonwebtoken");
 const Definer = require("../lib/mistake");
 
-//jwt sign qilishda vaqtni albatta tekshiradi agar cookie va token amal qilish vaqti boshqa bolsa yani token ni vaqti qisqa bolsa va u tugagach req bolsa null qiymat qaytaradi
-//JsonWebToken dataBase ga save bolishi shart emas
-//refresh_token esa db ga save qilinadi.jwt amal qilish vaqti qisqa vaqtga yozilganda vaqti tugagach exespire yani amal  qilish vaqti tugadi deb bildirish keladi .
-//Agar refresh_token dan foydalanilsa access_token vaqti togagach yana req bolsa brauzer db ga murojat qiladi va u yerdan refresh_token ni oladi. va shu orqali access_token yangilanadi     (access_token va refresh_token bor access_token qisqa vaqt bilan yaratiladi)
-//masalan: access_token 15 minut bolsa refresh_token 1 oy yoki 1 hafta va hakozo bolishi mumkin . Bunda har 15 minutda access_token tugap refresh_token orqali refresh bolip turadi.Bu holat refresh_tokenni amal qilish shuddatiga bogliq ravishda davom etadi
-//refresh_tokenni yana bir afzalligi agar sizni profilizga hacking bolaversa site adminiga yozasiz va u db dan refresh_token ni ochiradi
-//shundan song siz har safar site ga kirganizda login bolip turmaysiz va sizzni token lariz ham refresh bolib turmedi
-//bazi brauzerlarga kora httpS protokollar ga amal qilgan holdagina yani bazi shartlarga kora backend domen bilan frontend domeni yani ip adresi bir hil bolgandagina cookielar uzatiladi bu esa hackingni oldini olish uchun
-
 /**signup section start */
 memberController.signup = async (req, res) => {
   try {

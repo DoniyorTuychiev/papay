@@ -1,12 +1,9 @@
-
 console.log("web Serverni boshlash");
 const express = require("express");
 const app = express();
-
 const router = require("./router.js");
-
 const router_bssr = require("./router_bssr.js");
-
+const cors = require("cors");
 const cookieParser = require("cookie-parser");
 
 //session ni yarataish
@@ -20,9 +17,17 @@ const store = new MongoDBStore({
 
 //1 - kirishCode
 app.use(express.static("public"));
+app.use("/uploads", express.static(__dirname + "/uploads"));
 app.use(express.json());
 app.use(express.urlencoded ({extended: true}));//Bu comment bop qoganiga login.ejs fromdan input qabul qimadi
+app.use(
+  cors({
+  credentials: true,
+  origin: true      //har qanday domennidan kelyotgan reqni qabul qil manosi.postmanda bolmasligini sababi undan bu hususiyat yechilgan
+})
+);
 app.use(cookieParser()); //cookieParser ni ishlatish cookie ichidan access_tokenni ajratib olishga ruxsat beradi
+
 
 // 2- sessionCode
 
