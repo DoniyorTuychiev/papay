@@ -18,7 +18,7 @@ memberController.signup = async (req, res) => {
     // token qismi
     res.cookie("access_token", token, {
       maxAge: 6 * 3600 * 1000,
-      httpOnly: true,
+      httpOnly: false,
     });
 
     res.json({ static: "succeed", data: new_member });
@@ -43,7 +43,7 @@ memberController.login = async (req, res) => {
 
     res.cookie("access_token", token, {
       maxAge: 6 * 3600 * 1000,
-      httpOnly: true,
+      httpOnly: false, //reactda verify qilganim uchun faqat http ga emas hamma uchun ruxsat berdim
     });
 
     res.json({ static: "succeed", data: result });
@@ -56,7 +56,7 @@ memberController.login = async (req, res) => {
 /**logout section start */
 memberController.logout = (req, res) => {
   console.log("GET const.logout");
-  res.cookie("access_token", null, { maxAge: 0, httpOnly: true });
+  res.cookie("access_token", null, { maxAge: 0, httpOnly: false });
   res.json({ static: "succeed", data: "logout successfully!" });
 };
 /**logout section finesh */
