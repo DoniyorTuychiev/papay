@@ -50,7 +50,7 @@ const productSchema = new mongoose.Schema(
         //bu yerda function tuzvolamiz yani ichimlik emas ovqat bolganda product_size ni  chaqir yani normal,set,large kabi
         const sized_list = ["drink", "salad", " dessert"];
         return sized_list.includes(this.product_collection);
-      }, //todo
+      }, //todo 
       enum: {
         values: product_size_enums,
         message: "{VALUE}   is not among permitted enum values!",
