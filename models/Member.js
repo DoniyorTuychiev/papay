@@ -131,7 +131,6 @@ console.log("err", err.message);
       assert.ok(isValid, Definer.general_err2);
 
       const doesExist = await like.checkLikeExistence(like_ref_id);
-      console.log("doesExist:::", doesExist);
 
       let data = doesExist
         ? await like.removeMemberLike(like_ref_id, group_type)
