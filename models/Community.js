@@ -70,7 +70,7 @@ class Community {
     }
   }
 
-  async getMemberArticlesData(member, inquery) {
+  async getArticlesData(member, inquery) {
     try {
       const auth_mb_id = shapeIntoMongooseObjectId(member?._id);
       let matches =
