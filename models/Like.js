@@ -58,7 +58,8 @@ class Like {
   async removeMemberLike(like_ref_id, group_type) {
     try {
       const result = await this.likeModel
-        .findOneAndDelete({      //?findOneAndUpdate agar bu findByIdAndUpdate bolsa faqat id boyicha tekshirib amal bajaradi findOneAndUpdate da esa qolgan biz kiritgan narsalarni(masalan=> mb_id: this.mb_id) ham tekshirib mos bolsa gina amal bajaradi
+        .findOneAndDelete({
+          //?findOneAndUpdate agar bu findByIdAndUpdate bolsa faqat id boyicha tekshirib amal bajaradi findOneAndUpdate da esa qolgan biz kiritgan narsalarni(masalan=> mb_id: this.mb_id) ham tekshirib mos bolsa gina amal bajaradi
           like_ref_id: like_ref_id,
           mb_id: this.mb_id,
         })
@@ -84,19 +85,20 @@ class Like {
       await this.modifyItemLikeCounts(like_ref_id, group_type, 1);
       return result;
     } catch (err) {
-      throw new Error(Definer.mongo_validation_err1);;
+      throw new Error(Definer.mongo_validation_err1);
     }
   }
 
-  async modifyItemLikeCounts(like_ref_id, group_type, modifier) {//?modifier likeda kerak chunki qaytadan unlike bolish mumkin.Viewda es aksincha kerak emas birmarta korgan odam qayta bosib korganligini modifier qilolmaydi(kormadim deyolmaydi)
+  async modifyItemLikeCounts(like_ref_id, group_type, modifier) {
+    //?modifier likeda kerak chunki qaytadan unlike bolish mumkin.Viewda es aksincha kerak emas birmarta korgan odam qayta bosib korganligini modifier qilolmaydi(kormadim deyolmaydi)
     try {
       switch (group_type) {
         case "member":
           await this.memberModel
             .findByIdAndUpdate(
-              { _id: like_ref_id }, 
+              { _id: like_ref_id },
               { $inc: { mb_likes: modifier } }
-              )
+            )
             .exec();
           break;
         case "product":
@@ -110,7 +112,10 @@ class Like {
         case "community":
         default:
           await this.boArticleModel
-            .findByIdAndUpdate({ _id: like_ref_id }, { $inc: { art_likes: modifier } })
+            .findByIdAndUpdate(
+              { _id: like_ref_id },
+              { $inc: { art_likes: modifier } }
+            )
             .exec();
           break;
       }
