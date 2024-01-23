@@ -127,13 +127,10 @@ console.log("err", err.message);
         group_type
       );
 
-      console.log("isVallid:::", isValid);
+      console.log("isValid:::", isValid);
       assert.ok(isValid, Definer.general_err2);
 
       const doesExist = await like.checkLikeExistence(like_ref_id);
-      console.log("doesExist:::", doesExist);
-
-      //todo: logic that if member liked befor dont change like_cnt. other ways incrit 1 like_cnt
 
       let data = doesExist
         ? await like.removeMemberLike(like_ref_id, group_type)
