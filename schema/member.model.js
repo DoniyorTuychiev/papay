@@ -41,7 +41,7 @@ const memberSchema = new mongoose.Schema(
         message: "{VALUE} is not among permitted values",
       },
     },
-    mb_discription: {
+    mb_description: {
       type: String,
       required: false,
     },
@@ -77,7 +77,7 @@ const memberSchema = new mongoose.Schema(
       required: false,
       default: 0,
     },
-    mb_follow_count: {
+    mb_follow_cnt: {
       type: Number,
       required: false,
       default: 0,
