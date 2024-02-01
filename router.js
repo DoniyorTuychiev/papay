@@ -23,11 +23,18 @@ router.get(
   memberController.getChosenMember
 );
 
-router.post("/member-liken", 
-memberController.retrieveAuthMember,
-memberController.likeMemberChosen
+router.post(
+  "/member-liken",
+  memberController.retrieveAuthMember,
+  memberController.likeMemberChosen
 );
 
+router.post(
+  "/member/update",
+  memberController.retrieveAuthMember,
+  uploader_member.single("mb_image"),
+  memberController.updateMember
+);
 
 //boshqa routerlar
 router.post(
@@ -108,10 +115,7 @@ router.post(
   followController.unsubscribe
 );
 
-router.get(
-  "/follow/followings",
-  followController.getMemberfollowings
-);
+router.get("/follow/followings", followController.getMemberfollowings);
 
 router.get(
   "/follow/followers",

@@ -42,7 +42,7 @@ class Member {
 
   async loginData(input) {
     try {
-            const member = await this.memberModel
+      const member = await this.memberModel
         .findOne({ mb_nick: input.mb_nick }, { mb_nick: 1, mb_password: 1 })
         .exec();
       console.log("member:::", member);
@@ -56,7 +56,7 @@ class Member {
 
       return await this.memberModel.findOne({ mb_nick: input.mb_nick }).exec();
     } catch (err) {
-console.log("err", err.message);
+      console.log("err", err.message);
       throw err;
     }
   }
@@ -145,6 +145,33 @@ console.log("err", err.message);
       return result;
     } catch (err) {
       console.log("err", err.message);
+      throw err;
+    }
+  }
+
+  async updateMemberData(id, data, image) {
+    try {
+      const mb_id = shapeIntoMongooseObjectId(id);
+
+      let params = {
+        mb_nick: data.mb_nick,
+        mb_phone: data.mb_phone,
+        mb_address: data.mb_address,
+        mb_discription: data.mb_discription,
+        mb_image: image ? image.path : null,
+      };
+
+      for (let prop in params) if (!params[prop]) delete params[prop];
+      const result = await this.memberModel
+        .findOneAndUpdate({ _id: mb_id }, params, {
+          runValidators: true,
+          lean: true,
+          returnDocument: "after",
+        })
+        .exec();
+      assert.ok(result, Definer.general_err1);
+      return result;
+    } catch (err) {
       throw err;
     }
   }

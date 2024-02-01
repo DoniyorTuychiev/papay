@@ -124,7 +124,7 @@ memberController.retrieveAuthMember = (req, res, next) => {
 
 memberController.likeMemberChosen = async (req, res) => {
   try {
-    console.log("GET cont/likeMemberChosenr");
+    console.log("POST cont/likeMemberChosenr");
     assert.ok(req.member, Definer.auth_err5);
 
     const like_ref_id = req.body.like_ref_id,
@@ -141,6 +141,29 @@ memberController.likeMemberChosen = async (req, res) => {
     console.log("result:::", result);
   } catch (err) {
     console.log(`ERROR cont/likeMemberChosen, ${err.message}`);
+    res.json({ state: "fail", message: err.message });
+  }
+};
+
+memberController.updateMember = async (req, res) => {
+  try {
+    console.log("POST cont/updateMember");
+    console.log("ReqBody", req.body);
+    console.log("ReqFile", req.file);
+
+    assert.ok(req.member, Definer.auth_err3);
+
+    const member = new Member();
+    const result = await member.updateMemberData(
+      req.member?._id,
+      req.body,
+      req.file
+    );
+
+    res.json({ static: "succeed", data: result });
+    console.log("result:::", result);
+  } catch (err) {
+    console.log(`ERROR cont/updateMember, ${err.message}`);
     res.json({ state: "fail", message: err.message });
   }
 };
