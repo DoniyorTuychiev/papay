@@ -1,8 +1,7 @@
 const dotenv = require("dotenv");
 dotenv.config();
 
-const http = require("http");
-const mongoose = require("mongoose"); //mongoose ni chaqirib oldik
+const mongoose = require("mongoose"); 
 
 const connectionString = process.env.MONGO_URL;
 //env ichidagila: PORT = 4000
@@ -15,13 +14,10 @@ mongoose.connect(
     useUnifiedTopology: true,
   },
   (err, goose) => {
-    // 3- parametr bu callBack boladi
     try {
       //2 - qadam
       console.log("MongoDB connection succead");
-      // console.log(goose);
-      const app = require("./app");
-      const server = http.createServer(app); //socet ni ishlatishimiz uchun http dan instence olindi. shuning uchun app ni shunde jonatmasdan http
+      const server = require("./app"); //socet ni ishlatishimiz uchun http dan instence olindi. shuning uchun app ni shunde jonatmasdan http
 
       let PORT = process.env.PORT || 4000;
       server.listen(PORT, function () {
