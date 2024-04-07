@@ -48,7 +48,7 @@ const productSchema = new mongoose.Schema(
       default: "normal",
       required: function () {
         //bu yerda function tuzvolamiz yani ichimlik emas ovqat bolganda product_size ni  chaqir yani normal,set,large kabi
-        const sized_list = ["drink", "salad", " dessert"];
+        const sized_list = ["dish", "salad", " dessert"];
         return sized_list.includes(this.product_collection);
       }, //todo 
       enum: {
